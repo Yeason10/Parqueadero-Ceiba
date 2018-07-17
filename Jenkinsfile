@@ -39,7 +39,8 @@ pipeline
                                           
        }
      }
-
+     
+     step([$class: 'XUnitBuilder', testTimeMargin: '3000', thresholdMode: 1, thresholds: [[$class: 'FailedThreshold', failureNewThreshold: '', failureThreshold: '20', unstableNewThreshold: '1', unstableThreshold: '0'], [$class: 'SkippedThreshold', failureNewThreshold: '', failureThreshold: '', unstableNewThreshold: '', unstableThreshold: '']], tools: [[$class: 'JUnitType', deleteOutputFiles: true, failIfNotNew: false, pattern: '**/build/test-results/*.xml', skipNoTestFiles: true, stopProcessingIfError: true]]])
       
     stage('Unit Tests')
     {
