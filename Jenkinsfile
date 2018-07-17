@@ -86,10 +86,11 @@ pipeline
       echo 'This will always run'
      }
      
+    
      success
      {
        echo 'This will run only if successful'
-       junit '**build/test-results/test/*.xml'
+       //junit 'build/test-results/test.xml'
      }
      
      failure
