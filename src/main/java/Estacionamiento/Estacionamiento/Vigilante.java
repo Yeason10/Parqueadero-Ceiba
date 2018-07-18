@@ -1,5 +1,15 @@
 package Estacionamiento.Estacionamiento;
 
-public class Vigilante {
-
+import java.util.ArrayList;
+public class Vigilante 
+{
+  public void registroEntradaVehiculo(Vehiculo vehiculo)
+  {
+	//Por implementar
+  }
+  
+  public void registroSalidaVehiculo(Vehiculo vehiculo)
+  {
+    //Por implementar
+  }
 }
