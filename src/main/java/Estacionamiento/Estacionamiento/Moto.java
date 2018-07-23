@@ -19,8 +19,4 @@ public class Moto extends Vehiculo
  {
   this.cilindraje = cilindraje;
  }
-
-
-
-
 }
