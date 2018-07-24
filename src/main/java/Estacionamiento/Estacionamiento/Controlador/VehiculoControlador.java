@@ -1,6 +1,8 @@
 package Estacionamiento.Estacionamiento.Controlador;
 
 import Estacionamiento.Estacionamiento.exception.RecursoNoEncontradoExcepcion;
+import Estacionamiento.Estacionamiento.Vehiculo;
+import Estacionamiento.Estacionamiento.Vigilante;
 import Estacionamiento.Estacionamiento.Model.VehiculoEntidad;
 import Estacionamiento.Estacionamiento.Repositorio.VehiculoRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,9 @@ public class VehiculoControlador
   @Autowired
   VehiculoRepositorio vehiculoRepositorio;
   
+  @Autowired
+  Vigilante vigilante;
+  
   //get all vehicles
   @GetMapping("/vehiculos")
   public List<VehiculoEntidad> getTodosLosVehiculos()
@@ -25,16 +30,9 @@ public class VehiculoControlador
   
   //create a new vehicle
   @PostMapping("/vehiculos")
-  public VehiculoEntidad crearVehiculoEntidad(@Valid @RequestBody VehiculoEntidad vehiculoEntidad)
+  public Vehiculo crearVehiculoEntidad(@Valid @RequestBody Vehiculo vehiculo)
   {
-	  return vehiculoRepositorio.save(vehiculoEntidad);
-  }
-  
-  //create a new vehicle
-  @PostMapping("/vehi")
-  public String crearVehiculo(@Valid @RequestBody String vehi)
-  {
-	  return vehi;
+	  vigilante.registroEntradaVehiculo(vehiculo);
   }
   
   //Get a single vehicle

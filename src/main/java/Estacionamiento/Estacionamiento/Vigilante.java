@@ -44,10 +44,10 @@ public class Vigilante
 
   public void verificacionTipoVehiculo(Vehiculo vehiculo)
   {
-	  if(vehiculo instanceof Moto)
-	    cantMotos++;
-	  else
-        cantCarros++;
+	if(vehiculo instanceof Moto)
+	  cantMotos++;
+	else
+      cantCarros++;
   }
   
   public void verificacionCantidadVehiculos() throws ExcepcionRangoVehiculos
@@ -60,23 +60,21 @@ public class Vigilante
   
   public void verificacionPlaca(Vehiculo vehiculo) throws ExcepcionDiaInvalido
   {
-	  if (((vehiculo.getPlaca()).charAt(0) == 'A') && (revisarFecha(vehiculo)))
+	  if (((vehiculo.getPlaca()).charAt(0) == 'A') && (verificacionFecha(vehiculo)))
 	  {
 		throw new ExcepcionDiaInvalido("Dia invalido para ingresar al estacionamiento");
 	  }
   }
   
-  public boolean revisarFecha(Vehiculo vehiculo) 
+  public boolean verificacionFecha(Vehiculo vehiculo) 
   {
-	  Date fecha = vehiculo.getFechaIngreso();
-	  Calendar calendar = Calendar.getInstance();
-	  calendar.setTime(fecha);
-	  if((calendar.get(Calendar.DAY_OF_WEEK) == 1)||(calendar.get(Calendar.DAY_OF_WEEK) == 3))
-	  {
-		  return true;
-	  }  
-	  else
-		  return true;
+	Date fecha = vehiculo.getFechaIngreso();
+	Calendar calendar = Calendar.getInstance();
+	calendar.setTime(fecha);
+	if((calendar.get(Calendar.DAY_OF_WEEK) == 1)||(calendar.get(Calendar.DAY_OF_WEEK) == 2))
+	 return true;
+	else
+	 return false;
    }
  
 
