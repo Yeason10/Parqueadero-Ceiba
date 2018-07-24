@@ -38,10 +38,10 @@ public class VehiculoControlador
   }
   
   //Get a single vehicle
-  @GetMapping("/notes/{placa}")
+  @GetMapping("/vehiculos/{placa}")
   public VehiculoEntidad getVehiculoPorPlaca(@PathVariable(value = "placa") String vehiculoPlaca)
   {
-	  return vehiculoRepositorio.findById(vehiculoPlaca).orElseThrow(() -> new RecursoNoEncontradoExcepcion("VehiculoEntidad","placa",vehiculoPlaca));
+	  return vehiculoRepositorio.findById(vehiculoPlaca).orElseThrow(() -> new RecursoNoEncontradoExcepcion("VehiculoEntidad","id",vehiculoPlaca));
   }
   
   //Update vehicle

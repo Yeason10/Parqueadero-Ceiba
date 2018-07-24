@@ -1,12 +1,15 @@
 package Estacionamiento.Estacionamiento;
 
+import java.util.Date;
+
 public class Moto extends Vehiculo 
 {
  private int cilindraje;
  
- public Moto(String placa,int cilindraje)
+ 
+ public Moto(String placa,Date fechaIngreso,int cilindraje)
  {
-  super(placa); 
+  super(placa,fechaIngreso); 
   setCilindraje(cilindraje);
  }
 
