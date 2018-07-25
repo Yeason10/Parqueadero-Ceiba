@@ -1,5 +1,7 @@
 package Estacionamiento.Estacionamiento.Controlador;
 
+import Estacionamiento.Estacionamiento.exception.ExcepcionDiaInvalido;
+import Estacionamiento.Estacionamiento.exception.ExcepcionRangoVehiculos;
 import Estacionamiento.Estacionamiento.exception.RecursoNoEncontradoExcepcion;
 import Estacionamiento.Estacionamiento.Vehiculo;
 import Estacionamiento.Estacionamiento.Vigilante;
@@ -30,9 +32,9 @@ public class VehiculoControlador
   
   //create a new vehicle
   @PostMapping("/vehiculos")
-  public Vehiculo crearVehiculoEntidad(@Valid @RequestBody Vehiculo vehiculo)
+  public Vehiculo crearVehiculoEntidad(@Valid @RequestBody Vehiculo vehiculo) throws ExcepcionRangoVehiculos, ExcepcionDiaInvalido
   {
-	  vigilante.registroEntradaVehiculo(vehiculo);
+	return vigilante.registroEntradaVehiculo(vehiculo);  
   }
   
   //Get a single vehicle

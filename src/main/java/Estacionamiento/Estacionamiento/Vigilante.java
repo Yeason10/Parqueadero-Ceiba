@@ -2,39 +2,30 @@ package Estacionamiento.Estacionamiento;
 
 import java.util.Calendar;
 import java.util.Date;
-
+import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Autowired;
+import Estacionamiento.Estacionamiento.Persistencia.Almacenamiento;
 import Estacionamiento.Estacionamiento.exception.ExcepcionDiaInvalido;
 import Estacionamiento.Estacionamiento.exception.ExcepcionRangoVehiculos;
 
+@Service
 public class Vigilante 
 {
   public static int cantMotos;
   public static int cantCarros;
   
+  @Autowired
+  Almacenamiento almacenamiento;
+  
   public Vigilante(){}
   
-  public void registroEntradaVehiculo(Vehiculo vehiculo)
+  public Vehiculo registroEntradaVehiculo(Vehiculo vehiculo) throws ExcepcionRangoVehiculos, ExcepcionDiaInvalido
   {
 	verificacionTipoVehiculo(vehiculo);
+    verificacionCantidadVehiculos(vehiculo);
+    verificacionPlaca(vehiculo);
 
-	try
-	{
-	 verificacionCantidadVehiculos();
-	}
-	catch(ExcepcionRangoVehiculos e)
-	{
-     System.err.println(e.getMessage());    
-    }
-    
-	try
-	{
-     verificacionPlaca(vehiculo);
-	}
-	catch(ExcepcionDiaInvalido e)
-	{
-	 System.err.println(e.getMessage());
-	}
-    
+	return almacenamiento.almacenamientoVehiculo(vehiculo);
   }
   
   public void registroSalidaVehiculo(Vehiculo vehiculo)
@@ -44,38 +35,36 @@ public class Vigilante
 
   public void verificacionTipoVehiculo(Vehiculo vehiculo)
   {
-	if(vehiculo instanceof Moto)
+	if(vehiculo.getTipo().equals("moto"))
 	  cantMotos++;
 	else
       cantCarros++;
+   System.out.println("+++++++++++++++++++++++++++++++*********************" + cantCarros);
   }
   
-  public void verificacionCantidadVehiculos() throws ExcepcionRangoVehiculos
+  public boolean verificacionCantidadVehiculos(Vehiculo vehiculo) throws ExcepcionRangoVehiculos
   {
-	 if ((cantMotos > 20)|| (cantCarros > 10))
+	 if (((cantMotos > 10)&&(vehiculo.getTipo().equals("moto")))||((cantCarros > 20)&&(vehiculo.getTipo().equals("carro"))))
 	 {
 	   throw new ExcepcionRangoVehiculos("Numero de vehiculos superior al permitido");
 	 }
+	return true;
   }
   
-  public void verificacionPlaca(Vehiculo vehiculo) throws ExcepcionDiaInvalido
+  public boolean verificacionPlaca(Vehiculo vehiculo) throws ExcepcionDiaInvalido
   {
-	  if (((vehiculo.getPlaca()).charAt(0) == 'A') && (verificacionFecha(vehiculo)))
+	  if (((vehiculo.getPlaca()).charAt(0) == 'A') && !(verificacionFecha(vehiculo)))
 	  {
 		throw new ExcepcionDiaInvalido("Dia invalido para ingresar al estacionamiento");
 	  }
+      return true;
   }
   
   public boolean verificacionFecha(Vehiculo vehiculo) 
   {
-	Date fecha = vehiculo.getFechaIngreso();
 	Calendar calendar = Calendar.getInstance();
-	calendar.setTime(fecha);
-	if((calendar.get(Calendar.DAY_OF_WEEK) == 1)||(calendar.get(Calendar.DAY_OF_WEEK) == 2))
-	 return true;
-	else
-	 return false;
-   }
+	return ((calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY)||(calendar.get(Calendar.DAY_OF_WEEK) == Calendar.MONDAY));
+  }
  
 
 }

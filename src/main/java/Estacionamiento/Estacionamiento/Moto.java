@@ -4,22 +4,9 @@ import java.util.Date;
 
 public class Moto extends Vehiculo 
 {
- private int cilindraje;
- 
- 
- public Moto(String placa,Date fechaIngreso,int cilindraje)
+ public Moto(String placa,String estado,String cilindraje,String tipo,Date fechaIngreso)
  {
-  super(placa,fechaIngreso); 
-  setCilindraje(cilindraje);
+  super(placa,estado,cilindraje,tipo,fechaIngreso); 
  }
 
- public int getCilindraje()
- {
-  return cilindraje;
- }
-
- public void setCilindraje(int cilindraje)
- {
-  this.cilindraje = cilindraje;
- }
 }

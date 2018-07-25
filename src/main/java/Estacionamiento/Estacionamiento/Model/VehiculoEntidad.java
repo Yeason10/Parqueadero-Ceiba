@@ -8,14 +8,15 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 import java.util.Date;
 import java.io.Serializable;
 
 @Entity
 @Table(name = "vehiculos")
 @EntityListeners(AuditingEntityListener.class)
-@JsonIgnoreProperties(value = {"createdAt", "updatedAt"}, 
-        allowGetters = true)
+
 
 public class VehiculoEntidad implements Serializable 
 {
@@ -24,12 +25,29 @@ public class VehiculoEntidad implements Serializable
 
     @NotBlank
     private String cilindraje;
+    
+    @NotBlank
+    private String estado;
+    
+    @NotBlank
+    private String tipo;
 
+    
     @Column(nullable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
     @CreatedDate
-    private Date createdAt;
+    private Date fechaIngreso;
 
+    public VehiculoEntidad(){}
+    public VehiculoEntidad(String placa,String estado,String cilindraje,String tipo)
+    {
+      setPlaca(placa);
+      this.estado = "INACTIVO";
+      setCilindraje(cilindraje);
+      setTipo(tipo);
+      
+    }
+    
     public String getPlaca()
     {
       return placa;
@@ -40,9 +58,19 @@ public class VehiculoEntidad implements Serializable
       return cilindraje;	
     }
     
-    public Date getCreatedAt()
+    public String getEstado()
     {
-      return createdAt;
+      return estado;
+    }
+    
+    public String getTipo()
+    {
+      return tipo;
+    }
+    
+    public Date getFechaIngreso()
+    {
+      return fechaIngreso;
     }
     
     public void setPlaca(String placa)
@@ -54,9 +82,18 @@ public class VehiculoEntidad implements Serializable
     {
       this.cilindraje = cilindraje;
     }
-    
-    public void setCreatedAt(Date createdAt)
+    public void setEstado(String estado)
     {
-      this.createdAt = createdAt;
+      this.estado = estado;
+    }
+    
+    public void setTipo(String tipo)
+    {
+      this.tipo = tipo;	
+    }
+    
+    public void setFechaIngreso(Date fechaIngreso)
+    {
+      this.fechaIngreso = fechaIngreso;
     }
 }

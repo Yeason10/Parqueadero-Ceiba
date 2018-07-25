@@ -4,10 +4,8 @@ import java.util.Date;
 
 public class Carro extends Vehiculo
 {
-    
-    
-	public Carro(String placa,Date fechaIngreso)
+    public Carro(String placa,String estado,String cilindraje,String tipo,Date fechaIngreso)
     {
-     super(placa,fechaIngreso);
+     super(placa,estado,cilindraje,tipo,fechaIngreso);
     }
 }
