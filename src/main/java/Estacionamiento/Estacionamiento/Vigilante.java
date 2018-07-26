@@ -1,30 +1,46 @@
 package Estacionamiento.Estacionamiento;
 
 import java.util.Calendar;
-import java.util.Date;
+import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import Estacionamiento.Estacionamiento.Model.VehiculoEntidad;
 import Estacionamiento.Estacionamiento.Persistencia.Almacenamiento;
+import Estacionamiento.Estacionamiento.Repositorio.VehiculoRepositorio;
 import Estacionamiento.Estacionamiento.exception.ExcepcionDiaInvalido;
 import Estacionamiento.Estacionamiento.exception.ExcepcionRangoVehiculos;
 
 @Service
 public class Vigilante 
 {
-  public static int cantMotos;
-  public static int cantCarros;
-  
   @Autowired
   Almacenamiento almacenamiento;
   
-  public Vigilante(){}
+  @Autowired
+  VehiculoRepositorio vehiculoRepositorio;
+   
+  
+  private int cantCarros;
+  private int cantMotos;
+  
+  
+  public Vigilante(Almacenamiento almacenamiento, VehiculoRepositorio vehiculoRepositorio)
+  {
+	this.almacenamiento = almacenamiento;
+	this.vehiculoRepositorio = vehiculoRepositorio;
+  }
+ 
+  
   
   public Vehiculo registroEntradaVehiculo(Vehiculo vehiculo) throws ExcepcionRangoVehiculos, ExcepcionDiaInvalido
   {
+	cantCarros = vehiculoRepositorio.findByTipo("carro").size();
+	cantMotos = vehiculoRepositorio.findByTipo("moto").size();
 	verificacionTipoVehiculo(vehiculo);
     verificacionCantidadVehiculos(vehiculo);
     verificacionPlaca(vehiculo);
-
+    
 	return almacenamiento.almacenamientoVehiculo(vehiculo);
   }
   
@@ -39,7 +55,6 @@ public class Vigilante
 	  cantMotos++;
 	else
       cantCarros++;
-   System.out.println("+++++++++++++++++++++++++++++++*********************" + cantCarros);
   }
   
   public boolean verificacionCantidadVehiculos(Vehiculo vehiculo) throws ExcepcionRangoVehiculos

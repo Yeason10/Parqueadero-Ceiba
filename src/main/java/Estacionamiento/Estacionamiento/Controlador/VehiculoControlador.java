@@ -62,5 +62,8 @@ public class VehiculoControlador
 	  vehiculoRepositorio.delete(vehiculoEntidad);
 	  return ResponseEntity.ok().build();
   }
+  
+  
+
 }
  
