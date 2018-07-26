@@ -31,8 +31,6 @@ public class Vigilante
 	this.vehiculoRepositorio = vehiculoRepositorio;
   }
  
-  
-  
   public Vehiculo registroEntradaVehiculo(Vehiculo vehiculo) throws ExcepcionRangoVehiculos, ExcepcionDiaInvalido
   {
 	cantCarros = vehiculoRepositorio.findByTipo("carro").size();
