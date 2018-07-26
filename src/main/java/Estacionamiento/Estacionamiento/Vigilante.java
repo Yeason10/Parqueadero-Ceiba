@@ -1,11 +1,11 @@
 package Estacionamiento.Estacionamiento;
 
 import java.util.Calendar;
-import java.util.List;
+
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import Estacionamiento.Estacionamiento.Model.VehiculoEntidad;
+
 import Estacionamiento.Estacionamiento.Persistencia.Almacenamiento;
 import Estacionamiento.Estacionamiento.Repositorio.VehiculoRepositorio;
 import Estacionamiento.Estacionamiento.exception.ExcepcionDiaInvalido;
@@ -14,7 +14,7 @@ import Estacionamiento.Estacionamiento.exception.ExcepcionRangoVehiculos;
 @Service
 public class Vigilante 
 {
-  @Autowired
+  @Autowired //Inyeccion de deoendencias.
   Almacenamiento almacenamiento;
   
   @Autowired
@@ -66,14 +66,14 @@ public class Vigilante
   
   public boolean verificacionPlaca(Vehiculo vehiculo) throws ExcepcionDiaInvalido
   {
-	  if (((vehiculo.getPlaca()).charAt(0) == 'A') && !(verificacionFecha(vehiculo)))
+	  if (((vehiculo.getPlaca()).charAt(0) == 'A') && !(verificacionFecha()))
 	  {
 		throw new ExcepcionDiaInvalido("Dia invalido para ingresar al estacionamiento");
 	  }
       return true;
   }
   
-  public boolean verificacionFecha(Vehiculo vehiculo) 
+  public boolean verificacionFecha() 
   {
 	Calendar calendar = Calendar.getInstance();
 	return ((calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY)||(calendar.get(Calendar.DAY_OF_WEEK) == Calendar.MONDAY));
