@@ -1,14 +1,16 @@
-package Estacionamiento.Estacionamiento.Persistencia;
+package Estacionamiento.Estacionamiento.Servicio;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import Estacionamiento.Estacionamiento.Vehiculo;
+import Estacionamiento.Estacionamiento.Iservicio.IAlmacenamiento;
 import Estacionamiento.Estacionamiento.Model.VehiculoEntidad;
 import Estacionamiento.Estacionamiento.Repositorio.VehiculoRepositorio;
 
 @Service
-public class Almacenamiento 
+public class Almacenamiento implements IAlmacenamiento
 {
   @Autowired
   VehiculoRepositorio vehiculoRepositorio;

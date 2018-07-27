@@ -4,9 +4,9 @@ import Estacionamiento.Estacionamiento.exception.ExcepcionDiaInvalido;
 import Estacionamiento.Estacionamiento.exception.ExcepcionRangoVehiculos;
 import Estacionamiento.Estacionamiento.exception.RecursoNoEncontradoExcepcion;
 import Estacionamiento.Estacionamiento.Vehiculo;
-import Estacionamiento.Estacionamiento.Vigilante;
 import Estacionamiento.Estacionamiento.Model.VehiculoEntidad;
 import Estacionamiento.Estacionamiento.Repositorio.VehiculoRepositorio;
+import Estacionamiento.Estacionamiento.Servicio.Vigilante;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +17,7 @@ import java.util.List;
 @RequestMapping("/api")
 public class VehiculoControlador 
 {
-  @Autowired
+  @Autowired //Inyeccion(Interface)
   VehiculoRepositorio vehiculoRepositorio;
   
   @Autowired

@@ -1,20 +1,20 @@
-package Estacionamiento.Estacionamiento;
+package Estacionamiento.Estacionamiento.Servicio;
 
 import java.util.Calendar;
 
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
-
-import Estacionamiento.Estacionamiento.Persistencia.Almacenamiento;
+import Estacionamiento.Estacionamiento.Vehiculo;
+import Estacionamiento.Estacionamiento.Iservicio.IVigilante;
 import Estacionamiento.Estacionamiento.Repositorio.VehiculoRepositorio;
 import Estacionamiento.Estacionamiento.exception.ExcepcionDiaInvalido;
 import Estacionamiento.Estacionamiento.exception.ExcepcionRangoVehiculos;
 
 @Service
-public class Vigilante 
+public class Vigilante implements IVigilante
 {
-  @Autowired //Inyeccion de deoendencias.
+  @Autowired //Inyeccion de dependencias.
   Almacenamiento almacenamiento;
   
   @Autowired
@@ -47,7 +47,7 @@ public class Vigilante
     //Por implementar
   }
 
-  public void verificacionTipoVehiculo(Vehiculo vehiculo)
+  public void verificacionTipoVehiculo(Vehiculo vehiculo) 
   {
 	if(vehiculo.getTipo().equals("moto"))
 	  cantMotos++;
