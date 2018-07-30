@@ -2,7 +2,11 @@ package Estacionamiento.Estacionamiento.exception;
 
 public class ExcepcionDiaInvalido extends Exception
 {
-    public ExcepcionDiaInvalido(){}
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 4479683547591390385L;
+	public ExcepcionDiaInvalido(){}
 	public ExcepcionDiaInvalido(String msg)
 	{
 		super(msg);

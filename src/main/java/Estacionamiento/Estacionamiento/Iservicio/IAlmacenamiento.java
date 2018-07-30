@@ -7,5 +7,4 @@ public interface IAlmacenamiento
 {
   Vehiculo almacenamientoVehiculo(Vehiculo vehiculo);
   Vehiculo convertirEntidadDominio(VehiculoEntidad vehiculoEntidad);
-
 }

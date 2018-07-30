@@ -3,13 +3,16 @@ package Estacionamiento.Estacionamiento.Servicio;
 import java.util.Calendar;
 
 import org.springframework.stereotype.Service;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import Estacionamiento.Estacionamiento.Vehiculo;
+import Estacionamiento.Estacionamiento.Fabrica.Celdas;
+import Estacionamiento.Estacionamiento.Fabrica.CeldasFabrica;
 import Estacionamiento.Estacionamiento.Iservicio.IVigilante;
 import Estacionamiento.Estacionamiento.Repositorio.VehiculoRepositorio;
 import Estacionamiento.Estacionamiento.exception.ExcepcionDiaInvalido;
 import Estacionamiento.Estacionamiento.exception.ExcepcionRangoVehiculos;
+
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Service
 public class Vigilante implements IVigilante
@@ -20,50 +23,37 @@ public class Vigilante implements IVigilante
   @Autowired
   VehiculoRepositorio vehiculoRepositorio;
    
-  
-  private int cantCarros;
-  private int cantMotos;
-  
-  
-  public Vigilante(Almacenamiento almacenamiento, VehiculoRepositorio vehiculoRepositorio)
+  public Vehiculo registroEntradaVehiculo(Vehiculo vehiculo,Celdas celdas) throws ExcepcionRangoVehiculos, ExcepcionDiaInvalido
   {
-	this.almacenamiento = almacenamiento;
-	this.vehiculoRepositorio = vehiculoRepositorio;
-  }
- 
-  public Vehiculo registroEntradaVehiculo(Vehiculo vehiculo) throws ExcepcionRangoVehiculos, ExcepcionDiaInvalido
-  {
-	cantCarros = vehiculoRepositorio.findByTipo("carro").size();
-	cantMotos = vehiculoRepositorio.findByTipo("moto").size();
-	verificacionTipoVehiculo(vehiculo);
-    verificacionCantidadVehiculos(vehiculo);
+	verificacionCantidadVehiculos(vehiculo,celdas);
     verificacionPlaca(vehiculo);
-    
-	return almacenamiento.almacenamientoVehiculo(vehiculo);
-  }
+    return almacenamiento.almacenamientoVehiculo(vehiculo);
+   }
   
   public void registroSalidaVehiculo(Vehiculo vehiculo)
   {
     //Por implementar
   }
 
-  public void verificacionTipoVehiculo(Vehiculo vehiculo) 
-  {
-	if(vehiculo.getTipo().equals("moto"))
-	  cantMotos++;
-	else
-      cantCarros++;
-  }
   
-  public boolean verificacionCantidadVehiculos(Vehiculo vehiculo) throws ExcepcionRangoVehiculos
+  public boolean verificacionCantidadVehiculos(Vehiculo vehiculo,Celdas celdas) throws ExcepcionRangoVehiculos
   {
-	 if (((cantMotos > 10)&&(vehiculo.getTipo().equals("moto")))||((cantCarros > 20)&&(vehiculo.getTipo().equals("carro"))))
-	 {
+	  int cantVehiculosEnBasedeDatos;
+	  if(vehiculoRepositorio.findByTipo(vehiculo.getTipo())==null)
+	     cantVehiculosEnBasedeDatos = 0;
+	  else
+		  cantVehiculosEnBasedeDatos = vehiculoRepositorio.findByTipo(vehiculo.getTipo()).size();
+	  
+	  celdas = CeldasFabrica.creacionEstacionamiento(vehiculo.getTipo());
+      
+	  if((celdas.getCantidadCeldasDisponibles() < cantVehiculosEnBasedeDatos))
+	  {
 	   throw new ExcepcionRangoVehiculos("Numero de vehiculos superior al permitido");
-	 }
-	return true;
-  }
+	  }
   
+	  return true;
+  }
+	
   public boolean verificacionPlaca(Vehiculo vehiculo) throws ExcepcionDiaInvalido
   {
 	  if (((vehiculo.getPlaca()).charAt(0) == 'A') && !(verificacionFecha()))

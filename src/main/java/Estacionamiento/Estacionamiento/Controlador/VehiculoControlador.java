@@ -1,15 +1,19 @@
 package Estacionamiento.Estacionamiento.Controlador;
 
-import Estacionamiento.Estacionamiento.exception.ExcepcionDiaInvalido;
-import Estacionamiento.Estacionamiento.exception.ExcepcionRangoVehiculos;
-import Estacionamiento.Estacionamiento.exception.RecursoNoEncontradoExcepcion;
-import Estacionamiento.Estacionamiento.Vehiculo;
-import Estacionamiento.Estacionamiento.Model.VehiculoEntidad;
-import Estacionamiento.Estacionamiento.Repositorio.VehiculoRepositorio;
-import Estacionamiento.Estacionamiento.Servicio.Vigilante;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import Estacionamiento.Estacionamiento.Vehiculo;
+import Estacionamiento.Estacionamiento.Fabrica.Celdas;
+import Estacionamiento.Estacionamiento.Fabrica.CeldasFabrica;
+import Estacionamiento.Estacionamiento.Model.VehiculoEntidad;
+import Estacionamiento.Estacionamiento.Repositorio.VehiculoRepositorio;
+import Estacionamiento.Estacionamiento.Servicio.Vigilante;
+import Estacionamiento.Estacionamiento.exception.ExcepcionDiaInvalido;
+import Estacionamiento.Estacionamiento.exception.ExcepcionRangoVehiculos;
+import Estacionamiento.Estacionamiento.exception.RecursoNoEncontradoExcepcion;
+
 import javax.validation.Valid;
 import java.util.List;
 
@@ -34,7 +38,8 @@ public class VehiculoControlador
   @PostMapping("/vehiculos")
   public Vehiculo crearVehiculoEntidad(@Valid @RequestBody Vehiculo vehiculo) throws ExcepcionRangoVehiculos, ExcepcionDiaInvalido
   {
-	return vigilante.registroEntradaVehiculo(vehiculo);  
+	  Celdas celdas = CeldasFabrica.creacionEstacionamiento(vehiculo.getTipo());
+	  return vigilante.registroEntradaVehiculo(vehiculo,celdas);  
   }
   
   //Get a single vehicle

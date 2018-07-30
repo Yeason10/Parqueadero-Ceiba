@@ -2,7 +2,7 @@ package Estacionamiento.Estacionamiento;
 
 import java.util.Date;
 
-public class Vehiculo 
+public class  Vehiculo 
 {
   private String placa;
   private String estado;
@@ -55,14 +55,14 @@ public class Vehiculo
 	return tipo;
   }
  
-  public Date getFechaIngreso()
-  {
-	return fechaIngreso;
-  }
-  
   public void setTipo(String tipo)
   {
 	this.tipo = tipo;
+  }
+  
+  public Date getFechaIngreso()
+  {
+	return fechaIngreso;
   }
   
   public void setFechaIngreso(Date fechaIngreso)
