@@ -2,6 +2,8 @@ package Estacionamiento.Estacionamiento;
 
 import java.util.Date;
 
+import Estacionamiento.Estacionamiento.Servicio.Fecha;
+
 public class  Vehiculo 
 {
   private String placa;
@@ -18,6 +20,14 @@ public class  Vehiculo
 	setTipo(tipo);
 	setCilindraje(cilindraje);
 	setFechaIngreso(fechaIngreso);
+  }
+  
+  public Vehiculo(String placa,String tipo,String cilindraje,Date fechaIngreso)
+  {
+	 this.placa = placa;
+	 this.tipo = tipo;
+	 this.cilindraje = cilindraje;
+	 this.fechaIngreso = fechaIngreso;	
   }
   
   public String getPlaca()

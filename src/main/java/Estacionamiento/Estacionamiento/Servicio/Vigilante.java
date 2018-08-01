@@ -1,57 +1,64 @@
 package Estacionamiento.Estacionamiento.Servicio;
 
 import java.util.Calendar;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 
 import Estacionamiento.Estacionamiento.Vehiculo;
-import Estacionamiento.Estacionamiento.Fabrica.Celdas;
-import Estacionamiento.Estacionamiento.Fabrica.CeldasFabrica;
 import Estacionamiento.Estacionamiento.Iservicio.IVigilante;
-import Estacionamiento.Estacionamiento.Repositorio.VehiculoRepositorio;
+import Estacionamiento.Estacionamiento.Model.VehiculoEntidad;
+import Estacionamiento.Estacionamiento.Repositorio.VehiculoRepositorioJPA;
 import Estacionamiento.Estacionamiento.exception.ExcepcionDiaInvalido;
 import Estacionamiento.Estacionamiento.exception.ExcepcionRangoVehiculos;
-
+import Estacionamiento.Estacionamiento.fabrica.Celdas;
+import Estacionamiento.Estacionamiento.fabrica.CeldasFabrica;
+import Estacionamiento.Estacionamiento.Servicio.PersistenciaVehiculos;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @Service
 public class Vigilante implements IVigilante
 {
   @Autowired //Inyeccion de dependencias.
-  Almacenamiento almacenamiento;
+  PersistenciaVehiculos persistenciaVehiculos;
   
   @Autowired
-  VehiculoRepositorio vehiculoRepositorio;
-   
+  VehiculoRepositorioJPA vehiculoRepositorio;
+  
+  public Vigilante(){}
+    
   public Vehiculo registroEntradaVehiculo(Vehiculo vehiculo,Celdas celdas) throws ExcepcionRangoVehiculos, ExcepcionDiaInvalido
   {
 	verificacionCantidadVehiculos(vehiculo,celdas);
     verificacionPlaca(vehiculo);
-    return almacenamiento.almacenamientoVehiculo(vehiculo);
-   }
-  
-  public void registroSalidaVehiculo(Vehiculo vehiculo)
-  {
-    //Por implementar
+    return persistenciaVehiculos.insertar(vehiculo);
   }
-
   
+  public void registroSalidaVehiculo(Vehiculo vehiculo) throws ExcepcionDiaInvalido
+  {
+     persistenciaVehiculos.buscarVehiculoASalir(vehiculo);
+     
+  
+  }
+ 
+
   public boolean verificacionCantidadVehiculos(Vehiculo vehiculo,Celdas celdas) throws ExcepcionRangoVehiculos
   {
-	  int cantVehiculosEnBasedeDatos;
+	  /*int cantVehiculosEnBasedeDatos;
 	  if(vehiculoRepositorio.findByTipo(vehiculo.getTipo())==null)
 	     cantVehiculosEnBasedeDatos = 0;
 	  else
-		  cantVehiculosEnBasedeDatos = vehiculoRepositorio.findByTipo(vehiculo.getTipo()).size();
+		  cantVehiculosEnBasedeDatos = vehiculoRepositorio.findByTipo(vehiculo.getTipo()).size();*/
 	  
-	  celdas = CeldasFabrica.creacionEstacionamiento(vehiculo.getTipo());
+	  CeldasFabrica celdasFabrica = new CeldasFabrica();
+	  celdas = celdasFabrica.creacionEstacionamiento(vehiculo.getTipo()); 
       
-	  if((celdas.getCantidadCeldasDisponibles() < cantVehiculosEnBasedeDatos))
+	  if((celdas.getCantidadCeldasDisponibles() < vehiculoRepositorio.findByTipo(vehiculo.getTipo()).size()))
 	  {
 	   throw new ExcepcionRangoVehiculos("Numero de vehiculos superior al permitido");
 	  }
   
-	  return true;
+	  return true;  
   }
 	
   public boolean verificacionPlaca(Vehiculo vehiculo) throws ExcepcionDiaInvalido
@@ -69,5 +76,6 @@ public class Vigilante implements IVigilante
 	return ((calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY)||(calendar.get(Calendar.DAY_OF_WEEK) == Calendar.MONDAY));
   }
  
-
+ 
+  
 }

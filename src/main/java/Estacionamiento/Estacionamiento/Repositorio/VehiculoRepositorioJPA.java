@@ -10,7 +10,7 @@ import Estacionamiento.Estacionamiento.Model.VehiculoEntidad;
 
 
 @Repository
-public interface VehiculoRepositorio extends JpaRepository<VehiculoEntidad,String>
+public interface VehiculoRepositorioJPA extends JpaRepository<VehiculoEntidad,String>
 {
 	List<VehiculoEntidad> findByTipo(String tipo);
 }

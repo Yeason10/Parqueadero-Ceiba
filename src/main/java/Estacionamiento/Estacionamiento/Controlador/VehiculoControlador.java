@@ -5,14 +5,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import Estacionamiento.Estacionamiento.Vehiculo;
-import Estacionamiento.Estacionamiento.Fabrica.Celdas;
-import Estacionamiento.Estacionamiento.Fabrica.CeldasFabrica;
 import Estacionamiento.Estacionamiento.Model.VehiculoEntidad;
-import Estacionamiento.Estacionamiento.Repositorio.VehiculoRepositorio;
+import Estacionamiento.Estacionamiento.Repositorio.VehiculoRepositorioJPA;
 import Estacionamiento.Estacionamiento.Servicio.Vigilante;
 import Estacionamiento.Estacionamiento.exception.ExcepcionDiaInvalido;
 import Estacionamiento.Estacionamiento.exception.ExcepcionRangoVehiculos;
 import Estacionamiento.Estacionamiento.exception.RecursoNoEncontradoExcepcion;
+import Estacionamiento.Estacionamiento.fabrica.Celdas;
+import Estacionamiento.Estacionamiento.fabrica.CeldasFabrica;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -20,9 +20,9 @@ import java.util.List;
 @RestController
 @RequestMapping("/api")
 public class VehiculoControlador 
-{
+{ 
   @Autowired //Inyeccion(Interface)
-  VehiculoRepositorio vehiculoRepositorio;
+  VehiculoRepositorioJPA vehiculoRepositorio;
   
   @Autowired
   Vigilante vigilante;
@@ -38,7 +38,8 @@ public class VehiculoControlador
   @PostMapping("/vehiculos")
   public Vehiculo crearVehiculoEntidad(@Valid @RequestBody Vehiculo vehiculo) throws ExcepcionRangoVehiculos, ExcepcionDiaInvalido
   {
-	  Celdas celdas = CeldasFabrica.creacionEstacionamiento(vehiculo.getTipo());
+	  CeldasFabrica celdasFabrica =  new CeldasFabrica();
+	  Celdas celdas = celdasFabrica.creacionEstacionamiento(vehiculo.getTipo());
 	  return vigilante.registroEntradaVehiculo(vehiculo,celdas);  
   }
   

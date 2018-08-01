@@ -5,6 +5,6 @@ import Estacionamiento.Estacionamiento.Model.VehiculoEntidad;
 
 public interface IAlmacenamiento 
 {
-  Vehiculo almacenamientoVehiculo(Vehiculo vehiculo);
+  Vehiculo insertar(Vehiculo vehiculo);
   Vehiculo convertirEntidadDominio(VehiculoEntidad vehiculoEntidad);
 }

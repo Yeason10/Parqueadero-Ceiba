@@ -8,5 +8,10 @@ public class Moto extends Vehiculo
  {
   super(placa,estado,cilindraje,tipo,fechaIngreso); 
  }
+ 
+ public Moto(String placa,String tipo,String cilindraje,Date fechaIngreso)
+ {
+   super(placa,tipo,cilindraje,fechaIngreso);
+ }
 
 }

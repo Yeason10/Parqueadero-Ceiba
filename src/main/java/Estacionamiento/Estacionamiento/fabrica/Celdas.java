@@ -1,4 +1,4 @@
-package Estacionamiento.Estacionamiento.Fabrica;
+package Estacionamiento.Estacionamiento.fabrica;
 
 
 public abstract class Celdas

@@ -1,18 +1,19 @@
-package Estacionamiento.Estacionamiento.Fabrica;
+package Estacionamiento.Estacionamiento.fabrica;
 
 
 
 
 public class CeldasFabrica 
 {
-  private CeldasFabrica(){}
-  public static Celdas creacionEstacionamiento(String tipo)
+  public CeldasFabrica(){}
+  
+  public Celdas creacionEstacionamiento(String tipo)
   {
 	 if(tipo.equals("moto"))
 	 {
        return new CeldasMoto();
 	 }
-	 else 
+	 else  
 	   return new CeldasCarro();
    }
 }
