@@ -10,6 +10,7 @@ import Estacionamiento.Estacionamiento.Repositorio.VehiculoRepositorioJPA;
 import Estacionamiento.Estacionamiento.Servicio.Vigilante;
 import Estacionamiento.Estacionamiento.exception.ExcepcionDiaInvalido;
 import Estacionamiento.Estacionamiento.exception.ExcepcionRangoVehiculos;
+import Estacionamiento.Estacionamiento.exception.ExcepcionVehiculoNoEncontrado;
 import Estacionamiento.Estacionamiento.exception.RecursoNoEncontradoExcepcion;
 import Estacionamiento.Estacionamiento.fabrica.Celdas;
 import Estacionamiento.Estacionamiento.fabrica.CeldasFabrica;
@@ -19,7 +20,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
-public class VehiculoControlador 
+public class VehiculoControlador  
 { 
   @Autowired //Inyeccion(Interface)
   VehiculoRepositorioJPA vehiculoRepositorio;
@@ -52,13 +53,17 @@ public class VehiculoControlador
   
   //Update vehicle
   @PutMapping("/vehiculos/{placa}")
-  public VehiculoEntidad actualizarVehiculo(@PathVariable(value = "placa") String vehiculoPlaca, @Valid @RequestBody VehiculoEntidad vehiculoDetalles)
+  public Vehiculo actualizarVehiculo(@PathVariable(value = "placa") String vehiculoPlaca) throws ExcepcionVehiculoNoEncontrado
   {
-	VehiculoEntidad vehiculoEntidad = vehiculoRepositorio.findById(vehiculoPlaca).orElseThrow(() -> new RecursoNoEncontradoExcepcion("VehiculoEntidad","placa",vehiculoPlaca));  
-	vehiculoEntidad.setPlaca(vehiculoDetalles.getPlaca());
-	VehiculoEntidad actualizarVehiculoEntidad = vehiculoRepositorio.save(vehiculoEntidad);
-	return actualizarVehiculoEntidad;
-  }
+	return vigilante.registroSalidaVehiculo(vehiculoPlaca);
+	  
+  }  
+	  
+	 //VehiculoEntidad vehiculoEntidad = vehiculoRepositorio.findById(vehiculoPlaca).orElseThrow(() -> new RecursoNoEncontradoExcepcion("VehiculoEntidad","placa",vehiculoPlaca));  
+	//vehiculoEntidad.setPlaca(vehiculoDetalles.getPlaca());
+	//VehiculoEntidad actualizarVehiculoEntidad = vehiculoRepositorio.save(vehiculoEntidad);
+	//return actualizarVehiculoEntidad;
+  
   
   //Delete a vehicle
   @DeleteMapping("/vehiculos/{placa}")

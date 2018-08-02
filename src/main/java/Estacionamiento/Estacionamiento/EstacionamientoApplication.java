@@ -14,12 +14,15 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 import Estacionamiento.Estacionamiento.Servicio.Fecha;
 
-//@SpringBootApplication
-//@EnableJpaAuditing
+@SpringBootApplication
+@EnableJpaAuditing
 public class EstacionamientoApplication 
 {
-    public static void main(String[] args) {
+    public static void main(String[] args) 
+    {
+    	SpringApplication.run(EstacionamientoApplication.class, args); 
     	
+    
     }
     	 
      

@@ -11,6 +11,7 @@ import Estacionamiento.Estacionamiento.Model.VehiculoEntidad;
 import Estacionamiento.Estacionamiento.Repositorio.VehiculoRepositorioJPA;
 import Estacionamiento.Estacionamiento.exception.ExcepcionDiaInvalido;
 import Estacionamiento.Estacionamiento.exception.ExcepcionRangoVehiculos;
+import Estacionamiento.Estacionamiento.exception.ExcepcionVehiculoNoEncontrado;
 import Estacionamiento.Estacionamiento.fabrica.Celdas;
 import Estacionamiento.Estacionamiento.fabrica.CeldasFabrica;
 import Estacionamiento.Estacionamiento.Servicio.PersistenciaVehiculos;
@@ -26,32 +27,32 @@ public class Vigilante implements IVigilante
   VehiculoRepositorioJPA vehiculoRepositorio;
   
   public Vigilante(){}
+  
+  public Vigilante(PersistenciaVehiculos persistenciaVehiculos,VehiculoRepositorioJPA vehiculoRepositorio)
+  {
+	this.persistenciaVehiculos = persistenciaVehiculos;
+	this.vehiculoRepositorio = vehiculoRepositorio; 
+  }
     
   public Vehiculo registroEntradaVehiculo(Vehiculo vehiculo,Celdas celdas) throws ExcepcionRangoVehiculos, ExcepcionDiaInvalido
   {
 	verificacionCantidadVehiculos(vehiculo,celdas);
-    verificacionPlaca(vehiculo);
-    return persistenciaVehiculos.insertar(vehiculo);
+    verificacionPlaca(vehiculo); 
+    return persistenciaVehiculos.insertar(vehiculo);           
   }
   
-  public void registroSalidaVehiculo(Vehiculo vehiculo) throws ExcepcionDiaInvalido
+  public Vehiculo registroSalidaVehiculo(String vehiculoPlaca) throws ExcepcionVehiculoNoEncontrado
   {
-     persistenciaVehiculos.buscarVehiculoASalir(vehiculo);
-     
-  
+     Vehiculo vehiculoASalir = persistenciaVehiculos.buscarVehiculoASalir(vehiculoPlaca);
+     return vehiculoASalir;
   }
  
 
   public boolean verificacionCantidadVehiculos(Vehiculo vehiculo,Celdas celdas) throws ExcepcionRangoVehiculos
   {
-	  /*int cantVehiculosEnBasedeDatos;
-	  if(vehiculoRepositorio.findByTipo(vehiculo.getTipo())==null)
-	     cantVehiculosEnBasedeDatos = 0;
-	  else
-		  cantVehiculosEnBasedeDatos = vehiculoRepositorio.findByTipo(vehiculo.getTipo()).size();*/
-	  
+	 
 	  CeldasFabrica celdasFabrica = new CeldasFabrica();
-	  celdas = celdasFabrica.creacionEstacionamiento(vehiculo.getTipo()); 
+	  celdas = celdasFabrica.creacionEstacionamiento(vehiculo.getTipo());  
       
 	  if((celdas.getCantidadCeldasDisponibles() < vehiculoRepositorio.findByTipo(vehiculo.getTipo()).size()))
 	  {

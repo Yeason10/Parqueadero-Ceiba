@@ -19,10 +19,10 @@ public class Factura
    
    public int cobroSalidaDeVehiculo(Vehiculo vehiculo)
    {
-	   vehiculo.setEstado("INACTIVO");
-	   if((vehiculo.getTipo().equals("moto"))&&(Integer.parseInt(vehiculo.getCilindraje()) > 500))
+	   
+	    if((vehiculo.getTipo().equals("moto"))&&(Integer.parseInt(vehiculo.getCilindraje()) > 500))
 	    {
-	    	 
+	    	  
 	    	 
 	    		 
 	    	 

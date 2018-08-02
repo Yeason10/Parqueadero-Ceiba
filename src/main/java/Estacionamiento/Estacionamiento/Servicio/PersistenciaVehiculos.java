@@ -8,6 +8,7 @@ import Estacionamiento.Estacionamiento.Iservicio.IAlmacenamiento;
 import Estacionamiento.Estacionamiento.Model.VehiculoEntidad;
 import Estacionamiento.Estacionamiento.Repositorio.VehiculoRepositorioJPA;
 import Estacionamiento.Estacionamiento.exception.ExcepcionDiaInvalido;
+import Estacionamiento.Estacionamiento.exception.ExcepcionVehiculoNoEncontrado;
 
 @Service
 public class PersistenciaVehiculos implements IAlmacenamiento 
@@ -17,12 +18,12 @@ public class PersistenciaVehiculos implements IAlmacenamiento
 
 	public Vehiculo insertar(Vehiculo vehiculo) 
 	{
-		VehiculoEntidad vehiculoEntidad = new VehiculoEntidad(vehiculo.getPlaca(), vehiculo.getEstado(),
+		VehiculoEntidad vehiculoEntidad = new VehiculoEntidad(vehiculo.getPlaca(), vehiculo.getEstado(), 
 		vehiculo.getCilindraje(), vehiculo.getTipo());
 		vehiculoEntidad.setEstado("ACTIVO");
 		vehiculoEntidad.setFechaIngreso(vehiculo.getFechaIngreso());
 		return convertirEntidadDominio(vehiculoRepositorio.save(vehiculoEntidad));
-	}
+	} 
 
 	public Vehiculo convertirEntidadDominio(VehiculoEntidad vehiculoEntidad) 
 	{
@@ -30,14 +31,12 @@ public class PersistenciaVehiculos implements IAlmacenamiento
 				vehiculoEntidad.getTipo(), vehiculoEntidad.getFechaIngreso());
 	}
 
-	public boolean buscarVehiculoASalir(Vehiculo vehiculo) throws ExcepcionDiaInvalido
+	public 	Vehiculo buscarVehiculoASalir(String vehiculoPlaca) throws ExcepcionVehiculoNoEncontrado
 	{
-      VehiculoEntidad vehiculoEntidad = vehiculoRepositorio.getOne(vehiculo.getPlaca());
-	  if(vehiculoEntidad == null)
-	  {
-	    throw new ExcepcionDiaInvalido("Dia invalido para ingresar al estacionamiento");
-	  }
-	  return true;
+      VehiculoEntidad vehiculoEntidad = vehiculoRepositorio.findById(vehiculoPlaca).orElseThrow(() -> new ExcepcionVehiculoNoEncontrado("Vehiculo no encontrado"));
+      vehiculoEntidad.setEstado("INACTIVO");
+      VehiculoEntidad actualizarVehiculoEntidad = vehiculoRepositorio.save(vehiculoEntidad);
+      return convertirEntidadDominio(actualizarVehiculoEntidad);
 	}
 
 }
