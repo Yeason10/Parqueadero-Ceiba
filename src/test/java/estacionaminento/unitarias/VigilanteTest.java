@@ -53,7 +53,7 @@ public class VigilanteTest
     
      @Before public void initMocks()
      {
-    	 MockitoAnnotations.initMocks(this);
+    	 MockitoAnnotations.initMocks(this); 
      }
 
      @Test
@@ -161,7 +161,7 @@ public class VigilanteTest
       	listVehiculoEntidad.add(vehiculoEntidad);
       	Mockito.doReturn(listVehiculoEntidad).when(vehiculoRepositorio).findByTipo(Mockito.any());
       	
-      	//Act
+      	//Act 
       	boolean resultado = vigilante.verificacionCantidadVehiculos(vehiculo, celdasMoto);
       	
       	//Assert
@@ -173,7 +173,7 @@ public class VigilanteTest
       {
     	//Arrange 
         Vehiculo vehiculo = new CarroTestDataBuilder().build();
-      	CeldasCarro celdasCarro = new CeldasCarro();
+      	CeldasCarro celdasCarro = new CeldasCarro(); 
       	VehiculoEntidad vehiculoEntidad1 =   new VehiculoEntidad("BCV-234", "Inactivo", "34556", "carro");
       	VehiculoEntidad vehiculoEntidad2 =   new VehiculoEntidad("CCV-234", "Inactivo", "34556", "carro");
       	VehiculoEntidad vehiculoEntidad3 =   new VehiculoEntidad("DCV-234", "Inactivo", "34556", "carro");

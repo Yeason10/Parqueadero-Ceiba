@@ -10,6 +10,7 @@ public class CarroTestDataBuilder
     private String tipo;
     private String cilindraje;
     private Date fechaIngreso;
+    private String estado;
 
     public CarroTestDataBuilder()
     {
@@ -43,11 +44,18 @@ public class CarroTestDataBuilder
         return this;
     }
 
+    public CarroTestDataBuilder withEstado(String estado)
+    {
+    	this.estado = estado;
+        return this;
+    }
 
     public Carro build()
     {
-    	return new Carro(this.placa,this.tipo,this.cilindraje,this.fechaIngreso);
+    	return new Carro(this.placa,this.estado, this.tipo,this.cilindraje,this.fechaIngreso);
     }
+    
+    
 
 
 
