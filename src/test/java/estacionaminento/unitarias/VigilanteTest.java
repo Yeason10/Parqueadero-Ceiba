@@ -17,15 +17,17 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.Spy;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.SpyBean;
 
 import Estacionamiento.Estacionamiento.Vehiculo;
 import Estacionamiento.Estacionamiento.Model.VehiculoEntidad;
 import Estacionamiento.Estacionamiento.Repositorio.VehiculoRepositorioJPA;
+import Estacionamiento.Estacionamiento.Servicio.Factura;
 import Estacionamiento.Estacionamiento.Servicio.PersistenciaVehiculos;
 import Estacionamiento.Estacionamiento.Servicio.Vigilante;
 import Estacionamiento.Estacionamiento.exception.ExcepcionDiaInvalido;
 import Estacionamiento.Estacionamiento.exception.ExcepcionRangoVehiculos;
+import Estacionamiento.Estacionamiento.exception.ExcepcionVehiculoNoEncontrado;
 import Estacionamiento.Estacionamiento.fabrica.CeldasCarro;
 import Estacionamiento.Estacionamiento.fabrica.CeldasMoto;
 import testdatabuilder.CarroTestDataBuilder;
@@ -37,13 +39,16 @@ import testdatabuilder.MotoTestDataBuilder;
 public class VigilanteTest 
 {
 	
-	@Autowired
+	
 	@InjectMocks
 	Vigilante vigilante;
 	
 	@InjectMocks
 	@Spy
 	Vigilante espiaVigilante;
+	
+	@Mock
+	Factura factura;
     
     @Mock
     PersistenciaVehiculos persistenciaVehiculos;
@@ -68,7 +73,7 @@ public class VigilanteTest
     	
     	//Act
      	Vehiculo resultadoPruebaVehiculo = espiaVigilante.registroEntradaVehiculo(vehiculo, celdasCarro);
-    	
+    	 
     	//Assert
     	assertEquals(vehiculo,resultadoPruebaVehiculo);
       }
@@ -225,15 +230,24 @@ public class VigilanteTest
       	boolean resultado = vigilante.verificacionCantidadVehiculos(vehiculo, celdasCarro);
       	
       	//Assert
-      	assertTrue(resultado);
+      	assertTrue(resultado); 
       }
 
-
-
-
-
-
-
+      @Test
+      public void testRegistrarSalidaCarro() throws ExcepcionVehiculoNoEncontrado
+      {
+     	//Arrange
+        Vehiculo vehiculo = new CarroTestDataBuilder().build();
+     	String vehiculoPlaca = vehiculo.getPlaca();
+        Mockito.doReturn(vehiculo).when(persistenciaVehiculos).buscarVehiculoASalir(Mockito.any());
+        Mockito.doReturn((long)0).when(factura).cobroSalidaDeVehiculo(Mockito.any());
+        	
+        //Act
+        Vehiculo resultadoPruebaVehiculo = vigilante.registroSalidaVehiculo(vehiculoPlaca);
+     	
+     	//Assert
+     	assertEquals(vehiculo,resultadoPruebaVehiculo); 
+       }
 
 
 }

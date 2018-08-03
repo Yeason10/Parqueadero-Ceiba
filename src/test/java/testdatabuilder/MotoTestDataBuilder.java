@@ -14,7 +14,7 @@ public class MotoTestDataBuilder
 	    public MotoTestDataBuilder()
 	    {
 	     this.placa = "WXY-3345"; 
-	     this.tipo = "Carro";
+	     this.tipo = "moto";
 	     this.cilindraje="115";
 	     this.fechaIngreso= new Date();
 	    }

@@ -23,14 +23,24 @@ public class Vigilante implements IVigilante
   @Autowired
   VehiculoRepositorioJPA vehiculoRepositorio;
   
-  
+  @Autowired
+  Factura factura;
+    
   public Vigilante(){} 
   
   
-  public Vigilante(PersistenciaVehiculos persistenciaVehiculos,VehiculoRepositorioJPA vehiculoRepositorio)
+  public Vigilante(PersistenciaVehiculos persistenciaVehiculos,VehiculoRepositorioJPA vehiculoRepositorio, Factura factura) 
   {
 	this.persistenciaVehiculos = persistenciaVehiculos;
-	this.vehiculoRepositorio = vehiculoRepositorio; 
+	this.vehiculoRepositorio = vehiculoRepositorio;  
+	this.factura = factura;
+  }
+  
+  
+  public Vigilante(PersistenciaVehiculos persistenciaVehiculos,VehiculoRepositorioJPA vehiculoRepositorio) 
+  {
+	this.persistenciaVehiculos = persistenciaVehiculos;
+	this.vehiculoRepositorio = vehiculoRepositorio;  
   }
     
   public Vehiculo registroEntradaVehiculo(Vehiculo vehiculo,Celdas celdas) throws ExcepcionRangoVehiculos, ExcepcionDiaInvalido
@@ -40,14 +50,13 @@ public class Vigilante implements IVigilante
     return persistenciaVehiculos.insertar(vehiculo);           
   }
   
-  public void registroSalidaVehiculo(String vehiculoPlaca) throws ExcepcionVehiculoNoEncontrado
+  public Vehiculo registroSalidaVehiculo(String vehiculoPlaca) throws ExcepcionVehiculoNoEncontrado
   {  
-	 long valorAPagar;
-     Factura factura = new Factura();
+	 
 	 Vehiculo vehiculoASalir = persistenciaVehiculos.buscarVehiculoASalir(vehiculoPlaca);
-     valorAPagar = factura.cobroSalidaDeVehiculo(vehiculoASalir);
-     System.out.println(valorAPagar);
-     
+     factura.cobroSalidaDeVehiculo(vehiculoASalir);
+     System.out.println(factura.cobroSalidaDeVehiculo(vehiculoASalir));
+     return vehiculoASalir;
   }
  
 
@@ -62,7 +71,7 @@ public class Vigilante implements IVigilante
 	   throw new ExcepcionRangoVehiculos("Numero de vehiculos superior al permitido");
 	  }
   
-	  return true;  
+	  return true;   
   }
 	
   public boolean verificacionPlaca(Vehiculo vehiculo) throws ExcepcionDiaInvalido

@@ -9,7 +9,7 @@ import Estacionamiento.Estacionamiento.fabrica.Celdas;
 public interface IVigilante 
 { 
 	Vehiculo registroEntradaVehiculo(Vehiculo vehiculo,Celdas celdas)throws ExcepcionRangoVehiculos, ExcepcionDiaInvalido;
-	void registroSalidaVehiculo(String vehiculoPlaca)throws ExcepcionVehiculoNoEncontrado;
+	Vehiculo registroSalidaVehiculo(String vehiculoPlaca)throws ExcepcionVehiculoNoEncontrado;
 	boolean verificacionCantidadVehiculos(Vehiculo vehiculo,Celdas estacionamiento)throws ExcepcionRangoVehiculos;
 	boolean verificacionPlaca(Vehiculo vehiculo)throws ExcepcionDiaInvalido;
 	boolean verificacionFecha();

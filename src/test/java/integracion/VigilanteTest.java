@@ -8,15 +8,18 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import Estacionamiento.Estacionamiento.EstacionamientoApplication;
 import Estacionamiento.Estacionamiento.Vehiculo;
 import Estacionamiento.Estacionamiento.Repositorio.VehiculoRepositorioJPA;
+import Estacionamiento.Estacionamiento.Servicio.Factura;
 import Estacionamiento.Estacionamiento.Servicio.PersistenciaVehiculos;
 import Estacionamiento.Estacionamiento.Servicio.Vigilante;
 import Estacionamiento.Estacionamiento.exception.ExcepcionDiaInvalido;
 import Estacionamiento.Estacionamiento.exception.ExcepcionRangoVehiculos;
+import Estacionamiento.Estacionamiento.exception.ExcepcionVehiculoNoEncontrado;
 import Estacionamiento.Estacionamiento.fabrica.CeldasCarro;
 import Estacionamiento.Estacionamiento.fabrica.CeldasMoto;
 import testdatabuilder.CarroTestDataBuilder;
@@ -24,6 +27,7 @@ import testdatabuilder.MotoTestDataBuilder;
 
 @SpringBootTest(classes=EstacionamientoApplication.class)
 @RunWith(SpringRunner.class)
+@TestPropertySource(locations="classpath:application-test.properties")
 public class VigilanteTest 
 {
 
@@ -33,13 +37,16 @@ public class VigilanteTest
   @Autowired
   VehiculoRepositorioJPA vehiculoRepositorio;
   
+  @Autowired
+  Factura factura;
+  
   @Test
   public void testRegistroEntradaCarro() throws ExcepcionRangoVehiculos, ExcepcionDiaInvalido
   {
 	  //Arrange
 	  Vigilante vigilante = new Vigilante(persistenciaVehiculos,vehiculoRepositorio);
 	  Vehiculo vehiculo = new CarroTestDataBuilder().build();
-	  CeldasCarro celdasCarro = new CeldasCarro();
+	  CeldasCarro celdasCarro = new CeldasCarro(); 
 	  
 	  //Act 
 	  Vehiculo resultado = vigilante.registroEntradaVehiculo(vehiculo, celdasCarro);
@@ -93,6 +100,19 @@ public class VigilanteTest
 	assertFalse(resultado);
    }
 
-
+  @Test
+  public void testRegistroSalidaCarro() throws ExcepcionVehiculoNoEncontrado
+  {
+	  //Arrange
+	  Vigilante vigilante = new Vigilante(persistenciaVehiculos,vehiculoRepositorio,factura);
+	  Vehiculo vehiculo = new CarroTestDataBuilder().build();
+	  String vehiculoPlaca = vehiculo.getPlaca();
+	  
+	  //Act 
+	  Vehiculo resultado = vigilante.registroSalidaVehiculo(vehiculoPlaca); 
+	   
+	  //assert
+	  assertEquals(vehiculo.getPlaca(),resultado.getPlaca());
+  }
 
 }

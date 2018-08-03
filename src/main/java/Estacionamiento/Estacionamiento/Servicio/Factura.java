@@ -2,9 +2,12 @@ package Estacionamiento.Estacionamiento.Servicio;
 
 import org.joda.time.DateTime;
 import org.joda.time.Duration;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import Estacionamiento.Estacionamiento.Vehiculo;
 
+@Service
 public class Factura 
 {
    private static final int VALOR_HORA_CARRO = 1000;
@@ -15,6 +18,8 @@ public class Factura
    private static final int MINUTOS_EN_UN_DIA = 1440;
    private static final int MINUTOS_EN_NUEVE_HORAS=540;
    
+   @Autowired
+   Fecha fecha;
    
    
    
@@ -22,19 +27,18 @@ public class Factura
    
    public long cobroSalidaDeVehiculo(Vehiculo vehiculo)
    {
-	   
+	   System.out.println(vehiculo.getFechaIngreso());
 	   DateTime fechaIngreso= new DateTime(vehiculo.getFechaIngreso());
-       Fecha fecha = new Fecha(); 
  	   Duration tiempoEnEstacionamiento = fecha.obtenertCantDeTiempoEnParqueadero(fechaIngreso, fecha.fechaSalida());
-	   System.out.println("*******************************" + tiempoEnEstacionamiento.getStandardMinutes());
- 	   if(vehiculo.getTipo().equals("moto"))
+	   System.out.println(tiempoEnEstacionamiento.getStandardMinutes());
+ 	   if(vehiculo.getTipo().equals("moto")) 
 	   {
-	      if(Integer.parseInt(vehiculo.getCilindraje()) > 500)
+	      if(Integer.parseInt(vehiculo.getCilindraje()) > 500) 
 	      {
 	    	  if(tiempoEnEstacionamiento.getStandardMinutes() > MINUTOS_EN_NUEVE_HORAS )//SE QUEDO MAS DE 9 HORAS
 	    	    return cobroMotoMayorANueveHoras(tiempoEnEstacionamiento);
 	    	  else
-	    	    return cobroMotoMenorANueveHoras(tiempoEnEstacionamiento);
+	    	    return cobroMotoMenorANueveHoras(tiempoEnEstacionamiento); 
 	      }
 	      else
 	      { 
@@ -69,7 +73,7 @@ public class Factura
    public long cobroMotoMenorANueveHoras(Duration cantTiempoParqueadero)
    {
 	   if(cantTiempoParqueadero.getStandardMinutes() % MINUTOS_EN_UNA_HORA ==  0)//Horas exactas.
-		   return (VALOR_HORA_MOTO + 2000);
+		   return ((VALOR_HORA_MOTO * cantTiempoParqueadero.getStandardHours()) + 2000);
 	   else //Horas No exactas
 		   return (((cantTiempoParqueadero.getStandardHours())*VALOR_HORA_MOTO) + VALOR_HORA_MOTO + 2000);
    }
@@ -81,13 +85,13 @@ public class Factura
 	   else if(cantTiempoParqueadero.getStandardMinutes() % MINUTOS_EN_UN_DIA != 0)//Se quedo mas de un dia (dias NO exactos)
 		   return ((cantTiempoParqueadero.getStandardDays()*VALOR_DIA_CARRO ) + VALOR_DIA_CARRO);
 	   else //Se quedo mas de un dia (dias exactos)
-		   return ((cantTiempoParqueadero.getStandardDays()*VALOR_DIA_CARRO));
+		   return ((cantTiempoParqueadero.getStandardDays()*VALOR_DIA_CARRO)); 
    }
    
    public long cobroCarroMenorANueveHoras(Duration cantTiempoParqueadero)
    {
 	   if(cantTiempoParqueadero.getStandardMinutes() % MINUTOS_EN_UNA_HORA ==  0)//Horas exactas.
-		   return VALOR_HORA_CARRO;
+		   return (VALOR_HORA_CARRO * cantTiempoParqueadero.getStandardHours());
 	   else //Horas No exactas
 		   return (((cantTiempoParqueadero.getStandardHours())*VALOR_HORA_CARRO) + VALOR_HORA_CARRO);
    }
