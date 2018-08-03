@@ -2,8 +2,9 @@ package estacionaminento.unitarias;
 
 
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.verify;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
@@ -17,7 +18,6 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.Spy;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import Estacionamiento.Estacionamiento.Vehiculo;
 import Estacionamiento.Estacionamiento.Model.VehiculoEntidad;
@@ -112,7 +112,7 @@ public class VigilanteTest
     	  boolean resultado = espiaVigilante.verificacionPlaca(vehiculo);
     	  
     	  //Assert
-          assertTrue(resultado); 
+          assertTrue(resultado);  
     	  
       }
       

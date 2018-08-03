@@ -15,7 +15,7 @@ public class CarroTestDataBuilder
     public CarroTestDataBuilder()
     {
      this.placa = "WXY-3345"; 
-     this.tipo = "Carro";
+     this.tipo = "carro";
      this.cilindraje="115";
      this.fechaIngreso= new Date();
     }
@@ -52,7 +52,7 @@ public class CarroTestDataBuilder
 
     public Carro build()
     {
-    	return new Carro(this.placa,this.estado, this.tipo,this.cilindraje,this.fechaIngreso);
+    	return new Carro(this.placa,this.estado,this.cilindraje,this.tipo, this.fechaIngreso);
     }
     
     

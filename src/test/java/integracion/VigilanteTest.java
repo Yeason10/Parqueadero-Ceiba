@@ -1,14 +1,16 @@
 package integracion;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import Estacionamiento.Estacionamiento.EstacionamientoApplication;
 import Estacionamiento.Estacionamiento.Vehiculo;
 import Estacionamiento.Estacionamiento.Repositorio.VehiculoRepositorioJPA;
 import Estacionamiento.Estacionamiento.Servicio.PersistenciaVehiculos;
@@ -20,8 +22,8 @@ import Estacionamiento.Estacionamiento.fabrica.CeldasMoto;
 import testdatabuilder.CarroTestDataBuilder;
 import testdatabuilder.MotoTestDataBuilder;
 
-
-
+@SpringBootTest(classes=EstacionamientoApplication.class)
+@RunWith(SpringRunner.class)
 public class VigilanteTest 
 {
 
@@ -41,7 +43,7 @@ public class VigilanteTest
 	  
 	  //Act 
 	  Vehiculo resultado = vigilante.registroEntradaVehiculo(vehiculo, celdasCarro);
-	  
+	   
 	  //assert
 	  assertEquals(vehiculo.getPlaca(),resultado.getPlaca());
   }
@@ -70,7 +72,7 @@ public class VigilanteTest
 	  Vigilante vigilante = new Vigilante();
 	  
 	  //Act
-	  boolean resultado = vigilante.verificacionPlaca(vehiculo);
+	  boolean resultado = vigilante.verificacionPlaca(vehiculo); 
 	  
 	  //assert
 	  assertTrue(resultado);
