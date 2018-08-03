@@ -1,32 +1,31 @@
 package Estacionamiento.Estacionamiento.Servicio;
 
 import java.util.Calendar;
-import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import Estacionamiento.Estacionamiento.Vehiculo;
 import Estacionamiento.Estacionamiento.Iservicio.IVigilante;
-import Estacionamiento.Estacionamiento.Model.VehiculoEntidad;
 import Estacionamiento.Estacionamiento.Repositorio.VehiculoRepositorioJPA;
 import Estacionamiento.Estacionamiento.exception.ExcepcionDiaInvalido;
 import Estacionamiento.Estacionamiento.exception.ExcepcionRangoVehiculos;
 import Estacionamiento.Estacionamiento.exception.ExcepcionVehiculoNoEncontrado;
 import Estacionamiento.Estacionamiento.fabrica.Celdas;
 import Estacionamiento.Estacionamiento.fabrica.CeldasFabrica;
-import Estacionamiento.Estacionamiento.Servicio.PersistenciaVehiculos;
-import org.springframework.beans.factory.annotation.Autowired;
 
 @Service
 public class Vigilante implements IVigilante
 {
-  @Autowired //Inyeccion de dependencias.
+  @Autowired
   PersistenciaVehiculos persistenciaVehiculos;
   
   @Autowired
   VehiculoRepositorioJPA vehiculoRepositorio;
   
-  public Vigilante(){}
+  
+  public Vigilante(){} 
+  
   
   public Vigilante(PersistenciaVehiculos persistenciaVehiculos,VehiculoRepositorioJPA vehiculoRepositorio)
   {
@@ -41,16 +40,20 @@ public class Vigilante implements IVigilante
     return persistenciaVehiculos.insertar(vehiculo);           
   }
   
-  public Vehiculo registroSalidaVehiculo(String vehiculoPlaca) throws ExcepcionVehiculoNoEncontrado
-  {
-     Vehiculo vehiculoASalir = persistenciaVehiculos.buscarVehiculoASalir(vehiculoPlaca);
-     return vehiculoASalir;
+  public void registroSalidaVehiculo(String vehiculoPlaca) throws ExcepcionVehiculoNoEncontrado
+  {  
+	 long valorAPagar;
+     Factura factura = new Factura();
+	 Vehiculo vehiculoASalir = persistenciaVehiculos.buscarVehiculoASalir(vehiculoPlaca);
+     valorAPagar = factura.cobroSalidaDeVehiculo(vehiculoASalir);
+     System.out.println(valorAPagar);
+     
   }
  
 
   public boolean verificacionCantidadVehiculos(Vehiculo vehiculo,Celdas celdas) throws ExcepcionRangoVehiculos
   {
-	 
+	  
 	  CeldasFabrica celdasFabrica = new CeldasFabrica();
 	  celdas = celdasFabrica.creacionEstacionamiento(vehiculo.getTipo());  
       

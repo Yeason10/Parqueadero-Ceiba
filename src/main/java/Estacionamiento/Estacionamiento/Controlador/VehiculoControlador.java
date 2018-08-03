@@ -53,9 +53,9 @@ public class VehiculoControlador
   
   //Update vehicle
   @PutMapping("/vehiculos/{placa}")
-  public Vehiculo actualizarVehiculo(@PathVariable(value = "placa") String vehiculoPlaca) throws ExcepcionVehiculoNoEncontrado
+  public void actualizarVehiculo(@PathVariable(value = "placa") String vehiculoPlaca) throws ExcepcionVehiculoNoEncontrado
   {
-	return vigilante.registroSalidaVehiculo(vehiculoPlaca);
+	 vigilante.registroSalidaVehiculo(vehiculoPlaca);
 	  
   }  
 	  

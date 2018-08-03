@@ -19,8 +19,6 @@ import javax.validation.constraints.NotBlank;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import Estacionamiento.Estacionamiento.Servicio.Fecha;
-
 @Entity
 @Table(name = "vehiculos")
 @EntityListeners(AuditingEntityListener.class)

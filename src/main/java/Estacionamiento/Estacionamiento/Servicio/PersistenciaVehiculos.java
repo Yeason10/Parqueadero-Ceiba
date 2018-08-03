@@ -7,7 +7,6 @@ import Estacionamiento.Estacionamiento.Vehiculo;
 import Estacionamiento.Estacionamiento.Iservicio.IAlmacenamiento;
 import Estacionamiento.Estacionamiento.Model.VehiculoEntidad;
 import Estacionamiento.Estacionamiento.Repositorio.VehiculoRepositorioJPA;
-import Estacionamiento.Estacionamiento.exception.ExcepcionDiaInvalido;
 import Estacionamiento.Estacionamiento.exception.ExcepcionVehiculoNoEncontrado;
 
 @Service
@@ -21,7 +20,7 @@ public class PersistenciaVehiculos implements IAlmacenamiento
 		VehiculoEntidad vehiculoEntidad = new VehiculoEntidad(vehiculo.getPlaca(), vehiculo.getEstado(), 
 		vehiculo.getCilindraje(), vehiculo.getTipo());
 		vehiculoEntidad.setEstado("ACTIVO");
-		vehiculoEntidad.setFechaIngreso(vehiculo.getFechaIngreso());
+		vehiculoEntidad.setFechaIngreso(vehiculo.getFechaIngreso()); 
 		return convertirEntidadDominio(vehiculoRepositorio.save(vehiculoEntidad));
 	} 
 

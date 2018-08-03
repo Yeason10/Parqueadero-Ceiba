@@ -13,13 +13,14 @@ public class Fecha
 	
 	public Duration obtenertCantDeTiempoEnParqueadero(DateTime fechaIngreso, DateTime fechaSalida)
 	{
-		   return  new Duration(fechaIngreso,fechaSalida);
+		fechaSalida = new DateTime();
+		return  new Duration(fechaIngreso,fechaSalida); 
 		   
 	}
 
    public DateTime fechaSalida()
    {
-	   return fechaSalida.toDateTime();
+	   return DateTime.now();
    }
 
 

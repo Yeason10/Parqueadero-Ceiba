@@ -2,8 +2,6 @@ package Estacionamiento.Estacionamiento;
 
 import java.util.Date;
 
-import Estacionamiento.Estacionamiento.Servicio.Fecha;
-
 public class  Vehiculo 
 {
   private String placa;
