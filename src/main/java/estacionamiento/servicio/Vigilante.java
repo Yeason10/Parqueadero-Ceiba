@@ -56,7 +56,7 @@ public class Vigilante implements IVigilante
 	 Vehiculo vehiculoASalir = persistenciaVehiculos.buscarVehiculoASalir(vehiculoPlaca);
      
      
-     return factura.cobroSalidaDeVehiculo(vehiculoASalir);
+     return factura.cobroSalidaDeVehiculo(vehiculoASalir); 
   }
  
 
@@ -64,9 +64,9 @@ public class Vigilante implements IVigilante
   {
 	  
 	  CeldasFabrica celdasFabrica = new CeldasFabrica();
-	  celdas = celdasFabrica.creacionEstacionamiento(vehiculo.getTipo());  
+	  Celdas celdasAux = celdasFabrica.creacionEstacionamiento(vehiculo.getTipo());  
       
-	  if((celdas.getCantidadCeldasDisponibles() < vehiculoRepositorio.findByTipo(vehiculo.getTipo()).size()))
+	  if((celdasAux.getCantidadCeldasDisponibles() < vehiculoRepositorio.findByTipo(vehiculo.getTipo()).size()))
 	  {
 	   throw new ExcepcionRangoVehiculos("Numero de vehiculos superior al permitido");
 	  }
