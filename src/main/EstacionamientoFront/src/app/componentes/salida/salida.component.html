@@ -1,0 +1,37 @@
+<div class="row"><h3 class="centrado col-10">Lista de Vehiculos</h3>
+<h3>Validacion</h3></div>
+<br>
+
+<div class="container">
+  <div class="row">
+    <div style="height: 350px; overflow-y: auto;" class="col-9">
+      <table class="table table-dark">
+        <thead>
+          <tr>
+          <th scope="col">Placa</th>
+          <th scope="col">Tipo</th>
+          <th scope="col">Fecha Entrada</th>
+          <th scope="col">Estado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let vehiculo of vehiculos">
+          <td>{{vehiculo.placa}}</td>
+          <td>{{vehiculo.tipo}}</td>
+          <td>{{vehiculo.fechaIngreso}}</td>
+          <td>{{vehiculo.estado}}</td>
+          <td><button type="button" id="{{vehiculo.placa}}" (click)="salidaDeVehiculo(vehiculo.placa, vehiculo.estado, vehiculo.cilindraje, vehiculo.tipo, vehiculo.fechaIngreso)" class="btn btn-primary">Salir</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-3">
+      <app-validacion [vehiculo]="vehiculo"></app-validacion>
+    </div>
+  </div>    
+</div>
+
+<br><br>
+<div *ngIf="mostrarMensaje" [ngClass]="salidaExitosa ? 'alert alert-success col-9': 'alert alert-danger col-9'">
+  <strong>{{mensaje}}</strong>
+</div>

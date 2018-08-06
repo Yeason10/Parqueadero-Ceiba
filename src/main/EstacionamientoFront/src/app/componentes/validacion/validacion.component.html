@@ -1,0 +1,22 @@
+<div *ngIf="vehiculo; else noDefinido">
+    <label id="labelPlaca">Placa: {{vehiculo.placa}}</label>
+    <br>
+    <label id="labelCilindraje">Cilindraje: {{vehiculo.cilindraje}}</label>
+    <br>
+    <label id="labelFechaEntrada">Fecha Ingreso: {{vehiculo.fechaIngreso}}</label>
+    <br>
+    <label id="labelTipo">Tipo: {{vehiculo.tipo}}</label>
+</div>
+
+<ng-template #noDefinido>
+    <label id="labelPlaca">Placa: </label>
+    <br>
+    <label id="labelCilindraje">Cilindraje: </label>
+    <br>
+    <label id="labelFechaEntrada">Fecha Ingreso: </label>
+    <br>
+    <label id="labelTipo">Tipo: </label>
+</ng-template>
+
+
+

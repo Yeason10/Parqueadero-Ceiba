@@ -1,0 +1,15 @@
+<h3 style="text-align: center">Estacionamiento</h3>
+<br>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-2">
+        <app-entrada (evento)="mostrarLista()"></app-entrada>
+      </div>
+      <div class="col-10">
+        <app-salida (eventoSalida)="mostrarLista()" [vehiculos]="vehiculos"></app-salida>
+      </div>
+    </div>    
+  </div>
+
+
