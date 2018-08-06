@@ -243,10 +243,10 @@ public class VigilanteTest
         Mockito.doReturn((long)0).when(factura).cobroSalidaDeVehiculo(Mockito.any());
         	
         //Act
-        Vehiculo resultadoPruebaVehiculo = vigilante.registroSalidaVehiculo(vehiculoPlaca);
+        long resultadoPruebaVehiculo = vigilante.registroSalidaVehiculo(vehiculoPlaca);
      	
      	//Assert
-     	assertEquals(vehiculo,resultadoPruebaVehiculo); 
+     	assertEquals(0,resultadoPruebaVehiculo); 
        }
 
 

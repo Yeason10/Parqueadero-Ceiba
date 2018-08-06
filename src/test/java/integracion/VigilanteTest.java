@@ -13,6 +13,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import Estacionamiento.Estacionamiento.EstacionamientoApplication;
 import Estacionamiento.Estacionamiento.Vehiculo;
+import Estacionamiento.Estacionamiento.Model.VehiculoEntidad;
 import Estacionamiento.Estacionamiento.Repositorio.VehiculoRepositorioJPA;
 import Estacionamiento.Estacionamiento.Servicio.Factura;
 import Estacionamiento.Estacionamiento.Servicio.PersistenciaVehiculos;
@@ -104,15 +105,18 @@ public class VigilanteTest
   public void testRegistroSalidaCarro() throws ExcepcionVehiculoNoEncontrado
   {
 	  //Arrange
+	  
 	  Vigilante vigilante = new Vigilante(persistenciaVehiculos,vehiculoRepositorio,factura);
 	  Vehiculo vehiculo = new CarroTestDataBuilder().build();
+	  VehiculoEntidad ve = new VehiculoEntidad(vehiculo.getPlaca(), vehiculo.getEstado(), vehiculo.getCilindraje(), vehiculo.getTipo());
 	  String vehiculoPlaca = vehiculo.getPlaca();
+	  vehiculoRepositorio.save(ve);
 	  
 	  //Act 
-	  Vehiculo resultado = vigilante.registroSalidaVehiculo(vehiculoPlaca); 
+	  long resultado = vigilante.registroSalidaVehiculo(vehiculoPlaca); 
 	   
 	  //assert
-	  assertEquals(vehiculo.getPlaca(),resultado.getPlaca());
+	  assertEquals(0,resultado);
   }
 
 }
