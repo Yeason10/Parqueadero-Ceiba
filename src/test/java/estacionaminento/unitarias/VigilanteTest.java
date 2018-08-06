@@ -17,19 +17,18 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.Spy;
-import org.springframework.boot.test.mock.mockito.SpyBean;
 
-import Estacionamiento.Estacionamiento.Vehiculo;
-import Estacionamiento.Estacionamiento.Model.VehiculoEntidad;
-import Estacionamiento.Estacionamiento.Repositorio.VehiculoRepositorioJPA;
-import Estacionamiento.Estacionamiento.Servicio.Factura;
-import Estacionamiento.Estacionamiento.Servicio.PersistenciaVehiculos;
-import Estacionamiento.Estacionamiento.Servicio.Vigilante;
-import Estacionamiento.Estacionamiento.exception.ExcepcionDiaInvalido;
-import Estacionamiento.Estacionamiento.exception.ExcepcionRangoVehiculos;
-import Estacionamiento.Estacionamiento.exception.ExcepcionVehiculoNoEncontrado;
-import Estacionamiento.Estacionamiento.fabrica.CeldasCarro;
-import Estacionamiento.Estacionamiento.fabrica.CeldasMoto;
+import estacionamiento.Vehiculo;
+import estacionamiento.exception.ExcepcionDiaInvalido;
+import estacionamiento.exception.ExcepcionRangoVehiculos;
+import estacionamiento.exception.ExcepcionVehiculoNoEncontrado;
+import estacionamiento.fabrica.CeldasCarro;
+import estacionamiento.fabrica.CeldasMoto;
+import estacionamiento.model.VehiculoEntidad;
+import estacionamiento.repositorio.VehiculoRepositorioJPA;
+import estacionamiento.servicio.Factura;
+import estacionamiento.servicio.PersistenciaVehiculos;
+import estacionamiento.servicio.Vigilante;
 import testdatabuilder.CarroTestDataBuilder;
 import testdatabuilder.MotoTestDataBuilder;
 
@@ -66,7 +65,7 @@ public class VigilanteTest
      {
     	//Arrange
         Vehiculo vehiculo = new CarroTestDataBuilder().build();
-    	CeldasCarro celdasCarro = new CeldasCarro();
+    	CeldasCarro celdasCarro = new CeldasCarro(); 
     	Mockito.doReturn(true).when(espiaVigilante).verificacionCantidadVehiculos(Mockito.any(), Mockito.any());
     	Mockito.doReturn(true).when(espiaVigilante).verificacionPlaca(Mockito.any());
     	Mockito.doReturn(vehiculo).when(persistenciaVehiculos).insertar(Mockito.any());    	

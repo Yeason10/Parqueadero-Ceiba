@@ -2,10 +2,6 @@ package estacionaminento.unitarias;
 
 import static org.junit.Assert.assertEquals;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import org.joda.time.DateTime;
 import org.joda.time.Duration;
 import org.junit.Before;
@@ -15,11 +11,10 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.Spy;
-import org.springframework.beans.factory.annotation.Autowired;
 
-import Estacionamiento.Estacionamiento.Vehiculo;
-import Estacionamiento.Estacionamiento.Servicio.Factura;
-import Estacionamiento.Estacionamiento.Servicio.Fecha;
+import estacionamiento.Vehiculo;
+import estacionamiento.servicio.Factura;
+import estacionamiento.servicio.Fecha;
 import testdatabuilder.CarroTestDataBuilder;
 import testdatabuilder.MotoTestDataBuilder;
 
@@ -213,7 +208,7 @@ public class FacturaTest
 		DateTime dt1 = new DateTime(2000, 1, 1, 1, 1);
 	    dt1.toDate();
         DateTime dt2 = new DateTime(2000, 1, 1, 13, 5);
-        dt2.toDate();
+        dt2.toDate(); 
         
         
         Duration du = new Duration(dt1, dt2);
@@ -231,10 +226,6 @@ public class FacturaTest
 		
         //assert
         assertEquals(13000,dineroAcobrarse); 
-		 
-	} 
-
-
-
+	 } 
 
 }

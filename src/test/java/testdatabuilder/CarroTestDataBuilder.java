@@ -2,7 +2,7 @@ package testdatabuilder;
 
 import java.util.Date;
 
-import Estacionamiento.Estacionamiento.Carro;
+import estacionamiento.Carro;
 
 public class CarroTestDataBuilder 
 {

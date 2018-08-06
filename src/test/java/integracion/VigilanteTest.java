@@ -1,7 +1,6 @@
 package integracion;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
@@ -11,18 +10,18 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import Estacionamiento.Estacionamiento.EstacionamientoApplication;
-import Estacionamiento.Estacionamiento.Vehiculo;
-import Estacionamiento.Estacionamiento.Model.VehiculoEntidad;
-import Estacionamiento.Estacionamiento.Repositorio.VehiculoRepositorioJPA;
-import Estacionamiento.Estacionamiento.Servicio.Factura;
-import Estacionamiento.Estacionamiento.Servicio.PersistenciaVehiculos;
-import Estacionamiento.Estacionamiento.Servicio.Vigilante;
-import Estacionamiento.Estacionamiento.exception.ExcepcionDiaInvalido;
-import Estacionamiento.Estacionamiento.exception.ExcepcionRangoVehiculos;
-import Estacionamiento.Estacionamiento.exception.ExcepcionVehiculoNoEncontrado;
-import Estacionamiento.Estacionamiento.fabrica.CeldasCarro;
-import Estacionamiento.Estacionamiento.fabrica.CeldasMoto;
+import estacionamiento.EstacionamientoApplication;
+import estacionamiento.Vehiculo;
+import estacionamiento.exception.ExcepcionDiaInvalido;
+import estacionamiento.exception.ExcepcionRangoVehiculos;
+import estacionamiento.exception.ExcepcionVehiculoNoEncontrado;
+import estacionamiento.fabrica.CeldasCarro;
+import estacionamiento.fabrica.CeldasMoto;
+import estacionamiento.model.VehiculoEntidad;
+import estacionamiento.repositorio.VehiculoRepositorioJPA;
+import estacionamiento.servicio.Factura;
+import estacionamiento.servicio.PersistenciaVehiculos;
+import estacionamiento.servicio.Vigilante;
 import testdatabuilder.CarroTestDataBuilder;
 import testdatabuilder.MotoTestDataBuilder;
 
@@ -30,7 +29,7 @@ import testdatabuilder.MotoTestDataBuilder;
 @RunWith(SpringRunner.class)
 @TestPropertySource(locations="classpath:application-test.properties")
 public class VigilanteTest 
-{ 
+{  
 
   @Autowired 
   PersistenciaVehiculos persistenciaVehiculos;
@@ -47,7 +46,7 @@ public class VigilanteTest
 	  //Arrange
 	  Vigilante vigilante = new Vigilante(persistenciaVehiculos,vehiculoRepositorio);
 	  Vehiculo vehiculo = new CarroTestDataBuilder().build();
-	  CeldasCarro celdasCarro = new CeldasCarro(); 
+	  CeldasCarro celdasCarro = new CeldasCarro();  
 	  
 	  //Act 
 	  Vehiculo resultado = vigilante.registroEntradaVehiculo(vehiculo, celdasCarro);
