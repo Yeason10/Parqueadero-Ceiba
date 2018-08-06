@@ -14,7 +14,7 @@ public class  Vehiculo
   public Vehiculo(String placa,String estado,String cilindraje,String tipo,Date fechaIngreso)
   {
 	setPlaca(placa); 
-	this.estado="INACTIVO";
+	this.estado="INACTIVO"; 
 	setTipo(tipo);
 	setCilindraje(cilindraje);
 	setFechaIngreso(fechaIngreso);

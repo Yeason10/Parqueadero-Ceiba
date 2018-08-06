@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import Estacionamiento.Estacionamiento.Vehiculo;
 
 @Service
-public class Factura 
+public class Factura  
 {
    private static final int VALOR_HORA_CARRO = 1000;
    private static final int VALOR_HORA_MOTO = 500 ;
@@ -22,77 +22,80 @@ public class Factura
    Fecha fecha;
    
    
-   
+    
    
    
    public long cobroSalidaDeVehiculo(Vehiculo vehiculo)
    {
-	   System.out.println(vehiculo.getFechaIngreso());
+	  
 	   DateTime fechaIngreso= new DateTime(vehiculo.getFechaIngreso());
- 	   Duration tiempoEnEstacionamiento = fecha.obtenertCantDeTiempoEnParqueadero(fechaIngreso, fecha.fechaSalida());
-	   System.out.println(tiempoEnEstacionamiento.getStandardMinutes());
+ 	   Duration tiempoEnEstacionamiento = fecha.obtenertCantDeTiempoEnParqueadero(fechaIngreso, fecha.fechaSalida()); 
+	  
  	   if(vehiculo.getTipo().equals("moto")) 
 	   {
 	      if(Integer.parseInt(vehiculo.getCilindraje()) > 500) 
 	      {
-	    	  if(tiempoEnEstacionamiento.getStandardMinutes() > MINUTOS_EN_NUEVE_HORAS )//SE QUEDO MAS DE 9 HORAS
+	    	  if(tiempoEnEstacionamiento.getStandardMinutes() > MINUTOS_EN_NUEVE_HORAS )
 	    	    return cobroMotoMayorANueveHoras(tiempoEnEstacionamiento);
 	    	  else
-	    	    return cobroMotoMenorANueveHoras(tiempoEnEstacionamiento); 
+	    	    return cobroMotoMenorANueveHoras(tiempoEnEstacionamiento);  
 	      }
 	      else
 	      { 
 	    	  if(tiempoEnEstacionamiento.getStandardMinutes() > MINUTOS_EN_NUEVE_HORAS )
-	    	  {//SE QUEDO MAS DE 9 HORAS
+	    	  {
 		       return (cobroMotoMayorANueveHoras(tiempoEnEstacionamiento)-2000);
 	          } 
 		      else
 		      {
-		        return (cobroMotoMenorANueveHoras(tiempoEnEstacionamiento)-2000);
+		       return (cobroMotoMenorANueveHoras(tiempoEnEstacionamiento)-2000);
 		      }
 	      } 
-	    
+	     
 	    }
 	    else
-	    	if(tiempoEnEstacionamiento.getStandardMinutes() > MINUTOS_EN_NUEVE_HORAS )//SE QUEDO MAS DE 9 HORAS
+	    	if(tiempoEnEstacionamiento.getStandardMinutes() > MINUTOS_EN_NUEVE_HORAS )
 	    	    return cobroCarroMayorANueveHoras(tiempoEnEstacionamiento);
 	    	  else
 	    	    return cobroCarroMenorANueveHoras(tiempoEnEstacionamiento);
-     }
+   }
 
    public long cobroMotoMayorANueveHoras(Duration cantTiempoParqueadero)
    {
-	   if(cantTiempoParqueadero.getStandardMinutes() / MINUTOS_EN_UN_DIA == 0)//No se quedo mas de un dia.
+	   if(cantTiempoParqueadero.getStandardMinutes() / MINUTOS_EN_UN_DIA == 0) 
 		    return (VALOR_DIA_MOTO + 2000);
-	   else if(cantTiempoParqueadero.getStandardMinutes() % MINUTOS_EN_UN_DIA != 0)//Se quedo mas de un dia (dias NO exactos)
-		   return ((cantTiempoParqueadero.getStandardDays()*VALOR_DIA_MOTO ) + VALOR_DIA_MOTO + 2000); /////////////////
-	   else //Se quedo mas de un dia (dias exactos)
+	   else if(cantTiempoParqueadero.getStandardMinutes() % MINUTOS_EN_UN_DIA != 0)
+		   return ((cantTiempoParqueadero.getStandardDays()*VALOR_DIA_MOTO ) + VALOR_DIA_MOTO + 2000); 
+	   else 
 		   return ((cantTiempoParqueadero.getStandardDays()*VALOR_DIA_MOTO) + 2000); 
    }
 
    public long cobroMotoMenorANueveHoras(Duration cantTiempoParqueadero)
    {
-	   if(cantTiempoParqueadero.getStandardMinutes() % MINUTOS_EN_UNA_HORA ==  0)//Horas exactas.
-		   return ((VALOR_HORA_MOTO * cantTiempoParqueadero.getStandardHours()) + 2000);
-	   else //Horas No exactas
-		   return (((cantTiempoParqueadero.getStandardHours())*VALOR_HORA_MOTO) + VALOR_HORA_MOTO + 2000);
+	   
+	   if(cantTiempoParqueadero.getStandardMinutes() % MINUTOS_EN_UNA_HORA ==  0)
+	   {
+		  return (VALOR_HORA_MOTO * cantTiempoParqueadero.getStandardHours() + 2000); 
+	   }
+	   else 
+		   return (cantTiempoParqueadero.getStandardHours()*VALOR_HORA_MOTO) + VALOR_HORA_MOTO + 2000;
    }
 
    public long cobroCarroMayorANueveHoras(Duration cantTiempoParqueadero)
    {
-	   if(cantTiempoParqueadero.getStandardMinutes() / MINUTOS_EN_UN_DIA == 0)//No se quedo mas de un dia.
+	   if(cantTiempoParqueadero.getStandardMinutes() / MINUTOS_EN_UN_DIA == 0)
 		    return VALOR_DIA_CARRO;
-	   else if(cantTiempoParqueadero.getStandardMinutes() % MINUTOS_EN_UN_DIA != 0)//Se quedo mas de un dia (dias NO exactos)
+	   else if(cantTiempoParqueadero.getStandardMinutes() % MINUTOS_EN_UN_DIA != 0)
 		   return ((cantTiempoParqueadero.getStandardDays()*VALOR_DIA_CARRO ) + VALOR_DIA_CARRO);
-	   else //Se quedo mas de un dia (dias exactos)
-		   return ((cantTiempoParqueadero.getStandardDays()*VALOR_DIA_CARRO)); 
+	   else 
+		   return cantTiempoParqueadero.getStandardDays()*VALOR_DIA_CARRO; 
    }
    
    public long cobroCarroMenorANueveHoras(Duration cantTiempoParqueadero)
    {
-	   if(cantTiempoParqueadero.getStandardMinutes() % MINUTOS_EN_UNA_HORA ==  0)//Horas exactas.
+	   if(cantTiempoParqueadero.getStandardMinutes() % MINUTOS_EN_UNA_HORA ==  0)
 		   return (VALOR_HORA_CARRO * cantTiempoParqueadero.getStandardHours());
-	   else //Horas No exactas
+	   else 
 		   return (((cantTiempoParqueadero.getStandardHours())*VALOR_HORA_CARRO) + VALOR_HORA_CARRO);
    }
    

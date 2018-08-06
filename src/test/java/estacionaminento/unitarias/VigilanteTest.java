@@ -44,7 +44,7 @@ public class VigilanteTest
 	Vigilante vigilante;
 	
 	@InjectMocks
-	@Spy
+	@Spy 
 	Vigilante espiaVigilante;
 	
 	@Mock

@@ -13,5 +13,5 @@ public class Moto extends Vehiculo
  {
    super(placa,tipo,cilindraje,fechaIngreso);
  }
-
+ 
 }

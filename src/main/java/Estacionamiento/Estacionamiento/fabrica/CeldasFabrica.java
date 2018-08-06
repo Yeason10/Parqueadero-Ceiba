@@ -11,7 +11,7 @@ public class CeldasFabrica
   {
 	 if(tipo.equals("moto"))
 	 {
-       return new CeldasMoto();
+       return new CeldasMoto(); 
 	 }
 	 else  
 	   return new CeldasCarro();

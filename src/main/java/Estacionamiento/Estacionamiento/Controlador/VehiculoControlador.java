@@ -23,36 +23,36 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:4200", allowedHeaders="*", maxAge = 3600)
 public class VehiculoControlador  
 { 
-  @Autowired //Inyeccion(Interface)
+  @Autowired
   VehiculoRepositorioJPA vehiculoRepositorio;
   
-  @Autowired
+  @Autowired 
   Vigilante vigilante;
   
-  //get all vehicles
+  
   @GetMapping("/vehiculos")
   public List<VehiculoEntidad> getTodosLosVehiculos()
-  {
+  { 
 	return vehiculoRepositorio.findAll(); 
   }
   
-  //create a new vehicle
+ 
   @PostMapping("/vehiculos")
   public Vehiculo crearVehiculoEntidad(@Valid @RequestBody Vehiculo vehiculo) throws ExcepcionRangoVehiculos, ExcepcionDiaInvalido
   {
 	  CeldasFabrica celdasFabrica =  new CeldasFabrica();
-	  Celdas celdas = celdasFabrica.creacionEstacionamiento(vehiculo.getTipo());
+	  Celdas celdas = celdasFabrica.creacionEstacionamiento(vehiculo.getTipo()); 
 	  return vigilante.registroEntradaVehiculo(vehiculo,celdas);  
   }
   
-  //Get a single vehicle
+  
   @GetMapping("/vehiculos/{placa}")
   public VehiculoEntidad getVehiculoPorPlaca(@PathVariable(value = "placa") String vehiculoPlaca)
   {
 	  return vehiculoRepositorio.findById(vehiculoPlaca).orElseThrow(() -> new RecursoNoEncontradoExcepcion("VehiculoEntidad","id",vehiculoPlaca));
   }
   
-  //Update vehicle
+  
   @PutMapping("/vehiculos/{placa}")
   public long actualizarVehiculo(@PathVariable(value = "placa") String vehiculoPlaca) throws ExcepcionVehiculoNoEncontrado
   {
@@ -60,13 +60,7 @@ public class VehiculoControlador
 	  
   }  
 	  
-	 //VehiculoEntidad vehiculoEntidad = vehiculoRepositorio.findById(vehiculoPlaca).orElseThrow(() -> new RecursoNoEncontradoExcepcion("VehiculoEntidad","placa",vehiculoPlaca));  
-	//vehiculoEntidad.setPlaca(vehiculoDetalles.getPlaca());
-	//VehiculoEntidad actualizarVehiculoEntidad = vehiculoRepositorio.save(vehiculoEntidad);
-	//return actualizarVehiculoEntidad;
   
-  
-  //Delete a vehicle
   @DeleteMapping("/vehiculos/{placa}")
   public ResponseEntity<?> eliminarVehiculo(@PathVariable(value = "placa")String vehiculoPlaca)
   {

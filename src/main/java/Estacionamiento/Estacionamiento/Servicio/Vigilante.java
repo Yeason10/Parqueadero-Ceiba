@@ -24,16 +24,16 @@ public class Vigilante implements IVigilante
   VehiculoRepositorioJPA vehiculoRepositorio;
   
   @Autowired
-  Factura factura;
+  Factura factura; 
     
-  public Vigilante(){} 
+  public Vigilante(){}  
   
   
-  public Vigilante(PersistenciaVehiculos persistenciaVehiculos,VehiculoRepositorioJPA vehiculoRepositorio, Factura factura) 
+  public Vigilante(PersistenciaVehiculos persistenciaVehiculos,VehiculoRepositorioJPA vehiculoRepositorio, Factura factura)  
   {
 	this.persistenciaVehiculos = persistenciaVehiculos;
 	this.vehiculoRepositorio = vehiculoRepositorio;  
-	this.factura = factura;
+	this.factura = factura; 
   }
   
   

@@ -12,4 +12,4 @@ public class CeldasMoto extends Celdas
    {
 	  return CANT_DE_CELDAS_DISPONIBLES;
    }
-}
+} 

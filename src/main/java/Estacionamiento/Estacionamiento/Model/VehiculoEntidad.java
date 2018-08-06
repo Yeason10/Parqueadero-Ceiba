@@ -26,9 +26,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 public class VehiculoEntidad implements Serializable 
 {
-    /**
-	 * 
-	 */
+    
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private static final long serialVersionUID = 1L;

@@ -7,13 +7,13 @@ import org.springframework.stereotype.Service;
 
 
 @Service
-public class Fecha 
+public class Fecha  
 {  
-	DateTime fechaSalida;
+	
 	
 	public Duration obtenertCantDeTiempoEnParqueadero(DateTime fechaIngreso, DateTime fechaSalida)
 	{
-		fechaSalida = new DateTime();
+		//fechaSalida = new DateTime(); 
 		return  new Duration(fechaIngreso,fechaSalida); 
 		   
 	}

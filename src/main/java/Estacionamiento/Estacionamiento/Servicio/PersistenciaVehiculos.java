@@ -19,10 +19,10 @@ public class PersistenciaVehiculos implements IAlmacenamiento
 	{
 		VehiculoEntidad vehiculoEntidad = new VehiculoEntidad(vehiculo.getPlaca(), vehiculo.getEstado(), 
 		vehiculo.getCilindraje(), vehiculo.getTipo());
-		vehiculoEntidad.setEstado("ACTIVO");
-		vehiculoEntidad.setFechaIngreso(vehiculo.getFechaIngreso()); 
-		return convertirEntidadDominio(vehiculoRepositorio.save(vehiculoEntidad));
-	} 
+		vehiculoEntidad.setEstado("ACTIVO"); 
+		vehiculoEntidad.setFechaIngreso(vehiculo.getFechaIngreso());  
+		return convertirEntidadDominio(vehiculoRepositorio.save(vehiculoEntidad)); 
+	}  
 
 	public Vehiculo convertirEntidadDominio(VehiculoEntidad vehiculoEntidad) 
 	{

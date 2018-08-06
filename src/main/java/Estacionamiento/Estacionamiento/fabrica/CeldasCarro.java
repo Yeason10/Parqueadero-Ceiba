@@ -8,7 +8,7 @@ public class CeldasCarro extends Celdas
   
   @Override
   public int getCantidadCeldasDisponibles()
-  {
+  { 
 	 return CANT_DE_CELDAS_DISPONIBLES;
   }
 }

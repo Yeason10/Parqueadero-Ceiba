@@ -30,9 +30,9 @@ import testdatabuilder.MotoTestDataBuilder;
 @RunWith(SpringRunner.class)
 @TestPropertySource(locations="classpath:application-test.properties")
 public class VigilanteTest 
-{
+{ 
 
-  @Autowired //Inyeccion de dependencias.
+  @Autowired 
   PersistenciaVehiculos persistenciaVehiculos;
   
   @Autowired
@@ -87,25 +87,11 @@ public class VigilanteTest
 	  
   }
   
- /* @Test(expected=ExcepcionDiaInvalido.class)
-  public void testVerificacionPlacaNoIngresa () throws ExcepcionDiaInvalido
-  {
-	//Arrange
-	  Vehiculo vehiculo = new CarroTestDataBuilder().withPlaca("AXY-234").build();
-	  Vigilante vigilante = new Vigilante();
-	 
-	  //Act
-	  boolean resultado = vigilante.verificacionPlaca(vehiculo);
-	
-	 //assert
-	 assertFalse(resultado);
-   }*/
 
   @Test
   public void testRegistroSalidaCarro() throws ExcepcionVehiculoNoEncontrado
   {
 	  //Arrange
-	  
 	  Vigilante vigilante = new Vigilante(persistenciaVehiculos,vehiculoRepositorio,factura);
 	  Vehiculo vehiculo = new CarroTestDataBuilder().build();
 	  VehiculoEntidad ve = new VehiculoEntidad(vehiculo.getPlaca(), vehiculo.getEstado(), vehiculo.getCilindraje(), vehiculo.getTipo());
