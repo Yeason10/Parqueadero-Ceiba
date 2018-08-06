@@ -31,7 +31,7 @@ public class Factura
 	   DateTime fechaIngreso= new DateTime(vehiculo.getFechaIngreso());
  	   Duration tiempoEnEstacionamiento = fecha.obtenertCantDeTiempoEnParqueadero(fechaIngreso, fecha.fechaSalida()); 
 	  
- 	   if(vehiculo.getTipo().equals("moto")) 
+ 	   if("moto".equals(vehiculo.getTipo()))
 	   {
 	      if(Integer.parseInt(vehiculo.getCilindraje()) > 500) 
 	      {
