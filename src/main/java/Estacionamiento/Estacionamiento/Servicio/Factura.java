@@ -58,16 +58,16 @@ public class Factura
 	    	    return cobroCarroMayorANueveHoras(tiempoEnEstacionamiento);
 	    	  else
 	    	    return cobroCarroMenorANueveHoras(tiempoEnEstacionamiento);
-	  }
+     }
 
    public long cobroMotoMayorANueveHoras(Duration cantTiempoParqueadero)
    {
 	   if(cantTiempoParqueadero.getStandardMinutes() / MINUTOS_EN_UN_DIA == 0)//No se quedo mas de un dia.
 		    return (VALOR_DIA_MOTO + 2000);
 	   else if(cantTiempoParqueadero.getStandardMinutes() % MINUTOS_EN_UN_DIA != 0)//Se quedo mas de un dia (dias NO exactos)
-		   return ((cantTiempoParqueadero.getStandardDays()*VALOR_DIA_MOTO ) + VALOR_DIA_MOTO + 2000);
+		   return ((cantTiempoParqueadero.getStandardDays()*VALOR_DIA_MOTO ) + VALOR_DIA_MOTO + 2000); /////////////////
 	   else //Se quedo mas de un dia (dias exactos)
-		   return ((cantTiempoParqueadero.getStandardDays()*VALOR_DIA_MOTO) + 2000);
+		   return ((cantTiempoParqueadero.getStandardDays()*VALOR_DIA_MOTO) + 2000); 
    }
 
    public long cobroMotoMenorANueveHoras(Duration cantTiempoParqueadero)

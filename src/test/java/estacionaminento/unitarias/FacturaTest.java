@@ -45,7 +45,7 @@ public class FacturaTest
 		
 	    DateTime dt1 = new DateTime(2000, 1, 1, 1, 1);
 	    dt1.toDate();
-        DateTime dt2 = new DateTime(2000, 1, 2, 1, 1);
+        DateTime dt2 = new DateTime(2000, 1, 1, 11, 1);
         dt2.toDate();
         
         
@@ -63,6 +63,62 @@ public class FacturaTest
 		
         //assert
         assertEquals(6000,dineroAcobrarse); 
+		 
+	}
+	
+	@Test
+	public void testCobroSalidaDeMotoMayorAnueveHorasMasDeUnDiaNoExactosCilindrajeAlto() throws Throwable
+	{
+		//Arrange
+		
+	    DateTime dt1 = new DateTime(2000, 1, 1, 1, 1);
+	    dt1.toDate();
+        DateTime dt2 = new DateTime(2000, 1, 4, 5, 1);
+        dt2.toDate();
+        
+        
+        Duration du = new Duration(dt1, dt2);
+        System.out.println(du.getStandardMinutes());
+	    
+	    //String formattedDate = dateFormatter.format(parsedDate);
+        Vehiculo vehiculo = new MotoTestDataBuilder().withCilindraje("650").build();
+        vehiculo.setEstado("");
+        //Mockito.doReturn(du).when(fecha).obtenertCantDeTiempoEnParqueadero(Mockito.any(), Mockito.any());
+        Mockito.when(fecha.obtenertCantDeTiempoEnParqueadero(Mockito.any(), Mockito.any())).thenReturn(du);
+        Mockito.doReturn((long)6000).when(factura).cobroCarroMayorANueveHoras(Mockito.any());
+        //Act
+        long dineroAcobrarse = factura.cobroSalidaDeVehiculo(vehiculo);
+		
+        //assert
+        assertEquals(18000,dineroAcobrarse); 
+		 
+	}
+	
+	@Test
+	public void testCobroSalidaDeMotoMayorAnueveHorasMasDeUnDiaExactosCilindrajeAlto() throws Throwable
+	{
+		//Arrange
+		
+	    DateTime dt1 = new DateTime(2000, 1, 1, 1, 1);
+	    dt1.toDate();
+        DateTime dt2 = new DateTime(2000, 1, 4, 1, 1);
+        dt2.toDate();
+        
+        
+        Duration du = new Duration(dt1, dt2);
+        System.out.println(du.getStandardMinutes());
+	    
+	    //String formattedDate = dateFormatter.format(parsedDate);
+        Vehiculo vehiculo = new MotoTestDataBuilder().withCilindraje("650").build();
+        vehiculo.setEstado("");
+        //Mockito.doReturn(du).when(fecha).obtenertCantDeTiempoEnParqueadero(Mockito.any(), Mockito.any());
+        Mockito.when(fecha.obtenertCantDeTiempoEnParqueadero(Mockito.any(), Mockito.any())).thenReturn(du);
+        Mockito.doReturn((long)6000).when(factura).cobroCarroMayorANueveHoras(Mockito.any());
+        //Act
+        long dineroAcobrarse = factura.cobroSalidaDeVehiculo(vehiculo);
+		
+        //assert
+        assertEquals(14000,dineroAcobrarse);  
 		 
 	}
 	
@@ -90,22 +146,6 @@ public class FacturaTest
         //assert
         assertEquals(6000,dineroAcobrarse); 
 		 
-	}
+	} 
 
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-}
+ }

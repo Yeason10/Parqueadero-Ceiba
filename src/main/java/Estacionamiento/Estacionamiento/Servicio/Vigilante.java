@@ -50,13 +50,13 @@ public class Vigilante implements IVigilante
     return persistenciaVehiculos.insertar(vehiculo);           
   }
   
-  public Vehiculo registroSalidaVehiculo(String vehiculoPlaca) throws ExcepcionVehiculoNoEncontrado
+  public long registroSalidaVehiculo(String vehiculoPlaca) throws ExcepcionVehiculoNoEncontrado
   {  
 	 
 	 Vehiculo vehiculoASalir = persistenciaVehiculos.buscarVehiculoASalir(vehiculoPlaca);
-     factura.cobroSalidaDeVehiculo(vehiculoASalir);
+     
      System.out.println(factura.cobroSalidaDeVehiculo(vehiculoASalir));
-     return vehiculoASalir;
+     return factura.cobroSalidaDeVehiculo(vehiculoASalir);
   }
  
 

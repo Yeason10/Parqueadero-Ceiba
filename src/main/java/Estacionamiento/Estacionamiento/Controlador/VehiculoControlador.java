@@ -20,6 +20,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
+@CrossOrigin(origins = "http://localhost:4200", allowedHeaders="*", maxAge = 3600)
 public class VehiculoControlador  
 { 
   @Autowired //Inyeccion(Interface)
@@ -32,7 +33,7 @@ public class VehiculoControlador
   @GetMapping("/vehiculos")
   public List<VehiculoEntidad> getTodosLosVehiculos()
   {
-	return vehiculoRepositorio.findAll();
+	return vehiculoRepositorio.findAll(); 
   }
   
   //create a new vehicle
@@ -53,7 +54,7 @@ public class VehiculoControlador
   
   //Update vehicle
   @PutMapping("/vehiculos/{placa}")
-  public Vehiculo actualizarVehiculo(@PathVariable(value = "placa") String vehiculoPlaca) throws ExcepcionVehiculoNoEncontrado
+  public long actualizarVehiculo(@PathVariable(value = "placa") String vehiculoPlaca) throws ExcepcionVehiculoNoEncontrado
   {
 	 return vigilante.registroSalidaVehiculo(vehiculoPlaca);
 	  

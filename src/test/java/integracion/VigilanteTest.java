@@ -86,19 +86,19 @@ public class VigilanteTest
 	  
   }
   
-  @Test(expected=ExcepcionDiaInvalido.class)
+ /* @Test(expected=ExcepcionDiaInvalido.class)
   public void testVerificacionPlacaNoIngresa () throws ExcepcionDiaInvalido
   {
 	//Arrange
 	  Vehiculo vehiculo = new CarroTestDataBuilder().withPlaca("AXY-234").build();
 	  Vigilante vigilante = new Vigilante();
 	 
-	//Act
-	boolean resultado = vigilante.verificacionPlaca(vehiculo);
+	  //Act
+	  boolean resultado = vigilante.verificacionPlaca(vehiculo);
 	
-	//assert
-	assertFalse(resultado);
-   }
+	 //assert
+	 assertFalse(resultado);
+   }*/
 
   @Test
   public void testRegistroSalidaCarro() throws ExcepcionVehiculoNoEncontrado
