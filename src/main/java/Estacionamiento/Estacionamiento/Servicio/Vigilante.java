@@ -26,7 +26,7 @@ public class Vigilante implements IVigilante
   @Autowired
   Factura factura; 
     
-  public Vigilante(){}  
+  public Vigilante(){}   
   
   
   public Vigilante(PersistenciaVehiculos persistenciaVehiculos,VehiculoRepositorioJPA vehiculoRepositorio, Factura factura)  
@@ -55,7 +55,7 @@ public class Vigilante implements IVigilante
 	 
 	 Vehiculo vehiculoASalir = persistenciaVehiculos.buscarVehiculoASalir(vehiculoPlaca);
      
-     System.out.println(factura.cobroSalidaDeVehiculo(vehiculoASalir));
+     
      return factura.cobroSalidaDeVehiculo(vehiculoASalir);
   }
  

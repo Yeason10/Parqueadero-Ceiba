@@ -7,7 +7,7 @@ public class ExcepcionVehiculoNoEncontrado  extends Exception
 	public ExcepcionVehiculoNoEncontrado(String msg)
 	{
 		super(msg);
-	}
+	} 
   
 
 }
